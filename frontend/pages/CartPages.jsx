@@ -2,12 +2,8 @@
 import { useCart } from "../src/context/CartContext.jsx";
 
 const CartPages = () => {
-    const { cartItems, removeProductFromCart, updateQuantity } = useCart();
+    const { cartItems, total, removeProductFromCart, updateQuantity } = useCart();
 
-    const total = cartItems.reduce(
-        (sum, item) => sum + Number(item.product_price) * item.quantity,
-        0
-    );
 
     return (
         <div>
@@ -18,6 +14,11 @@ const CartPages = () => {
             ) : (
                 cartItems.map((item) => (
                     <div key={item.id}>
+                        <img
+                            src={`${import.meta.env.VITE_DJANGO_BASE_URL}${item.product_image}`}
+                            alt={item.product_name}
+                            className="w-24 h-24 object-cover"
+                        />
                         <h2>{item.product_name}</h2>
                         <p>Price: {item.product_price}</p>
 
