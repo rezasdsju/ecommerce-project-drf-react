@@ -37,10 +37,12 @@ const ProductDetails = () => {
     return (
         <div>
             <div>
-               <div>
-                 <img src={`${BASE_URL}${product.image}`} alt={product.name} 
+                {
+                    product.image &&                <div>
+                 <img src={`${product.image}`} alt={product.name} 
                  className='w-full md:w-1/2 h-auto object-cover rounded-lg'/>
                </div>
+                }
 
                <div>
                 <h1>{product.name}</h1>
@@ -48,7 +50,10 @@ const ProductDetails = () => {
                 <p>{product.description}</p>
                </div>
                <button>Add to Cart</button>
+               <button>Back to home</button>
+               
             </div>
+            
         </div>
     );
 };
