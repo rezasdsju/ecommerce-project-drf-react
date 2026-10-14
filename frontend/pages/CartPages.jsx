@@ -1,6 +1,6 @@
 
 import { useCart } from "../src/context/CartContext.jsx";
-
+import { Link } from "react-router-dom";
 const CartPages = () => {
     const { cartItems, total, removeProductFromCart, updateQuantity } = useCart();
 
@@ -8,7 +8,8 @@ const CartPages = () => {
     return (
         <div>
             <h1>Your Cart</h1>
-
+ 
+        
             {cartItems.length === 0 ? (
                 <p>Cart is empty</p>
             ) : (
@@ -57,7 +58,9 @@ const CartPages = () => {
 
             {cartItems.length > 0 && (
                 <h2>Total: {Number(total).toFixed(2)}</h2>
+
             )}
+           <Link to={`/checkout`}>Procedd to checkout</Link>
         </div>
     );
 };
