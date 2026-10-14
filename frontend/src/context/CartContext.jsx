@@ -82,6 +82,11 @@ const CartProvider = ({ children }) => {
         }
     };
 
+
+    const clearCart = async()=>{
+        setCartItems([])
+        setTotal(0)
+    }
     return (
         <CartContext.Provider
             value={{
@@ -90,6 +95,7 @@ const CartProvider = ({ children }) => {
                 addToCart,
                 removeProductFromCart,
                 updateQuantity,
+                clearCart
             }}
         >
             {children}
