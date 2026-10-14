@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from '../src/context/CartContext';
 
 const ProductDetails = () => {
     const {id} = useParams()
     const [product, setProduct] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const {addToCart} = useCart()
     const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL
 
     useEffect(()=>{
@@ -49,7 +52,7 @@ const ProductDetails = () => {
                 <p>{product.price}</p>
                 <p>{product.description}</p>
                </div>
-               <button>Add to Cart</button>
+               <button onClick={()=>addToCart(product)}>Add to Cart</button>
                <button>Back to home</button>
                
             </div>
