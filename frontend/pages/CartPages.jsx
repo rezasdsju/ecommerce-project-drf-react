@@ -1,10 +1,11 @@
+
 import { useCart } from "../src/context/CartContext.jsx";
 
 const CartPages = () => {
     const { cartItems, removeProductFromCart, updateQuantity } = useCart();
 
     const total = cartItems.reduce(
-        (sum, item) => sum + Number(item.price) * item.quantity,
+        (sum, item) => sum + Number(item.product_price) * item.quantity,
         0
     );
 
@@ -17,8 +18,8 @@ const CartPages = () => {
             ) : (
                 cartItems.map((item) => (
                     <div key={item.id}>
-                        <h2>{item.name}</h2>
-                        <p>Price: {item.price}</p>
+                        <h2>{item.product_name}</h2>
+                        <p>Price: {item.product_price}</p>
 
                         <p>Quantity: {item.quantity}</p>
 
@@ -47,14 +48,14 @@ const CartPages = () => {
 
                         <p>
                             Subtotal:{" "}
-                            {(Number(item.price) * item.quantity).toFixed(2)}
+                            {(Number(item.product_price) * item.quantity).toFixed(2)}
                         </p>
                     </div>
                 ))
             )}
 
             {cartItems.length > 0 && (
-                <h2>Total: {total.toFixed(2)}</h2>
+                <h2>Total: {Number(total).toFixed(2)}</h2>
             )}
         </div>
     );
