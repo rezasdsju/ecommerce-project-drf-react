@@ -1,40 +1,97 @@
-import { createContext, useContext, useState } from "react";
 
-const CartContext = createContext()
+import { createContext, useContext, useEffect, useState } from "react";
+
+const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([])
+    const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL;
+    const [total, setTotal] = useState(0);
+    const [cartItems, setCartItems] = useState([]);
 
-    const addToCart = (product) => {
-        const existing = cartItems.find((item) => item.id === product.id)
-        if (existing) {
-            setCartItems(
-                cartItems.map((item) =>
-                    item.id === product.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                )
-            )
-        } else {
-            setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    const fetchCart = async () => {
+        try {
+            const res = await fetch(`${BASE_URL}/api/cart/`);
+            if (!res.ok) {
+                throw new Error("Failed to fetch Cart");
+            }
+            const data = await res.json();
+            setCartItems(data.items || []);
+            setTotal(data.total || 0);
+        } catch (error) {
+            console.error("Error fetching cart:", error);
         }
-    }
-
-    const removeProductFromCart = (productId) => {
-        setCartItems(cartItems.filter(item => item.id !== productId))
-    }
-
-    const updateQuantity = (id, quantity) => {
-        if (quantity < 1) return;
-
-        setCartItems(
-            cartItems.map((item) =>
-                item.id === id ? { ...item, quantity } : item
-            )
-        );
     };
+
+    useEffect(() => {
+        fetchCart();
+    }, []);
+
+    const addToCart = async (product) => {
+        try {
+            const res = await fetch(`${BASE_URL}/api/cart/add/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ product_id: product.id }),
+            });
+            if (!res.ok) throw new Error("Failed to add product");
+            await fetchCart();
+        } catch (error) {
+            console.error("Error adding to Cart:", error);
+        }
+    };
+
+    const removeProductFromCart = async (itemId) => {
+        try {
+            const res = await fetch(`${BASE_URL}/api/cart/remove/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ item_id: itemId }),
+            });
+            if (!res.ok) throw new Error("Failed to remove item");
+            await fetchCart();
+        } catch (error) {
+            console.error("Error removing from cart:", error);
+        }
+    };
+
+    const updateQuantity = async (itemId, quantity) => {
+        if (quantity < 1) {
+            await removeProductFromCart(itemId);
+            return;
+        }
+
+        try {
+            const res = await fetch(`${BASE_URL}/api/cart/update/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    item_id: itemId,
+                    quantity: quantity,
+                }),
+            });
+            if (!res.ok) throw new Error("Failed to update quantity");
+            await fetchCart();
+        } catch (error) {
+            console.error("Error updating cart:", error);
+        }
+    };
+
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeProductFromCart, updateQuantity }}>
+        <CartContext.Provider
+            value={{
+                cartItems,
+                total,
+                addToCart,
+                removeProductFromCart,
+                updateQuantity,
+            }}
+        >
             {children}
         </CartContext.Provider>
     );
@@ -42,4 +99,4 @@ const CartProvider = ({ children }) => {
 
 export default CartProvider;
 
-export const useCart = () => useContext(CartContext)
+export const useCart = () => useContext(CartContext);
