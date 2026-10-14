@@ -11,7 +11,7 @@ const ProductList = () => {
 
     useEffect(()=>{
         const fetchProducts = async()=>{
-            fetch(`${import.meta.env.VITE_BASE_API_URL}products/`)
+            fetch(`${import.meta.env.VITE_DJANGO_BASE_API_URL}products/`)
             .then((response)=>{
                 if (!response.ok){
                     throw new Error('Failed to fetch products')
@@ -27,7 +27,7 @@ const ProductList = () => {
                 setLoading(false)
             })
         }
-        return fetchProducts
+        fetchProducts()
 
     },[])
 
