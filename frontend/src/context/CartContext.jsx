@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
-
+import { authFetch, getAccessToken } from "../utils/auth";
 const CartProvider = ({ children }) => {
     const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL;
     const [total, setTotal] = useState(0);
@@ -10,10 +10,10 @@ const CartProvider = ({ children }) => {
 
     const fetchCart = async () => {
         try {
-            const res = await fetch(`${BASE_URL}/api/cart/`);
-            if (!res.ok) {
-                throw new Error("Failed to fetch Cart");
-            }
+            const res = await authFetch(`${BASE_URL}/api/cart/`);
+            // if (!res.ok) {
+            //     throw new Error("Failed to fetch Cart");
+            // }
             const data = await res.json();
             setCartItems(data.items || []);
             setTotal(data.total || 0);
@@ -28,7 +28,7 @@ const CartProvider = ({ children }) => {
 
     const addToCart = async (product) => {
         try {
-            const res = await fetch(`${BASE_URL}/api/cart/add/`, {
+            const res = await authFetch(`${BASE_URL}/api/cart/add/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const CartProvider = ({ children }) => {
 
     const removeProductFromCart = async (itemId) => {
         try {
-            const res = await fetch(`${BASE_URL}/api/cart/remove/`, {
+            const res = await authFetch(`${BASE_URL}/api/cart/remove/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const CartProvider = ({ children }) => {
         }
 
         try {
-            const res = await fetch(`${BASE_URL}/api/cart/update/`, {
+            const res = await authFetch(`${BASE_URL}/api/cart/update/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
