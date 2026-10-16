@@ -7,20 +7,27 @@ import CheckoutPage from "../pages/CheckoutPage"
 import PrivateRouter from "../components/PrivateRouter"
 import Login from "../pages/Login"
 import SignUp from "../pages/Signup"
+import NavCategories from "../components/NavCategories"
+
+
+
 export default function App() {
   return (
     <Router>
       <Navbar></Navbar>
+
+      {/* <NavCategories></NavCategories> */}
+
       <Routes>
         <Route path="/" element={<ProductList />}></Route>
         <Route path="/product/:id" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<CartPages />}></Route>
 
-        <Route element={<PrivateRouter/>}>
+        <Route element={<PrivateRouter />}>
           <Route path="/checkout" element={<CheckoutPage />}></Route>
         </Route>
-        <Route path="/login" element={<Login/>}></Route>
-        <Route path="/signup" element={<SignUp/>}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
     </Router>
   )
