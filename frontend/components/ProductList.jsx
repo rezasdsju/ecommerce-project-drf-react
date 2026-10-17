@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "./ProductCard";
 
 const ProductList = () => {
     const [products, setProducts] = useState([])
@@ -39,8 +39,8 @@ const ProductList = () => {
     }
     return (
         <div className="min-h-screen b-gray-100">
-            <h1 className="text-3xl font-bold text-center my-8 bg-white ">All Products </h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+            <h1 className="text-3xl font-bold text-center my-8 bg-white ">সকল পণ্য</h1>
+            <div className="grid grid-cols-1 min-[500px]:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
                 {
                     products.length>0 ? products.map(product=>{
                        return <ProductCard key={product.id} product={product}></ProductCard>
