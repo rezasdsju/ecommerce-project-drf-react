@@ -13,7 +13,7 @@ const Navbar = () => {
         navigate('/login')
     }
     return (
-        <div className="border-b border-gray-100 shadow-md">
+        <div className="border-b border-gray-100 ">
             <nav className="flex items-center justify-between  px-2 py-4 max-w-6xl mx-auto">
 
                 <div className="flex items-center">

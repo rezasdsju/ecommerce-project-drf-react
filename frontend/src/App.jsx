@@ -8,6 +8,7 @@ import PrivateRouter from "../components/PrivateRouter"
 import Login from "../pages/Login"
 import SignUp from "../pages/Signup"
 import NavCategories from "../components/NavCategories"
+import HomePage from "../pages/HomePage"
 
 
 
@@ -19,7 +20,8 @@ export default function App() {
       <NavCategories></NavCategories>
 
       <Routes>
-        <Route path="/" element={<ProductList />}></Route>
+        <Route path="/" element={<HomePage />}></Route>
+
         <Route path="/product/:id" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<CartPages />}></Route>
 

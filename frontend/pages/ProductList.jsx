@@ -39,7 +39,7 @@ const ProductList = () => {
     }
     return (
         <div className="min-h-screen b-gray-100">
-            <h1 className="text-3xl font-bold text-center my-8 bg-white shadow-md">Product List</h1>
+            <h1 className="text-3xl font-bold text-center my-8 bg-white ">All Products </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
                 {
                     products.length>0 ? products.map(product=>{
