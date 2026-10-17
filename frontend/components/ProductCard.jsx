@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
         <div className='border border-gray-100 px-2 py-2 rounded-2xl  space-y-4 '>
 
             <Link to={`/product/${product.id}`} className='space-y-2'>
-                <div >
+                <div className='relative'>
                     {
                         product.image && <img
                             src={`${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}`}
@@ -19,7 +19,14 @@ const ProductCard = ({ product }) => {
 
                             className="w-full h-56 object-cover rounded-lg mb-4" />
                     }
+                    <span
+                        className="absolute top-0 right-0 bg-linear-to-r from-purple-600 via-pink-500 to-rose-500 text-white text-sm font-bold px-3 py-2
+    [clip-path:polygon(0%_0%,100%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]"
+                    >
+                        13% <br /> ছাড়
+                    </span>
                 </div>
+
                 <div className='space-y-2'>
                     <div className='flex items-center text-2xl font-semibold text-gray-800 truncate'>
                         <h2 className="">{product.name}</h2>

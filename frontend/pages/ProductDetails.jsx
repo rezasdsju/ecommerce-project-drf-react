@@ -1,7 +1,12 @@
 
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../src/context/CartContext';
+import { FaStar } from "react-icons/fa";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { GiShoppingCart } from "react-icons/gi";
+import { MdOutlineHorizontalRule } from "react-icons/md";
+import { PiLineVerticalBold } from "react-icons/pi";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -42,33 +47,52 @@ const ProductDetails = () => {
     if (!product) {
         return <div>No Product Found</div>;
     }
-const handleAddToCart = ()=>{
-    if (!localStorage.getItem('access_token')){
-        window.location.href('/login')
+    const handleAddToCart = () => {
+        if (!localStorage.getItem('access_token')) {
+            window.location.href('/login')
+        }
+        addToCart(product.id)
     }
-    addToCart(product.id)
-}
     return (
-        <div>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 my-10'>
             <div>
-                {product.image && (
-                    <div>
-                        <img
-                            src={`${BASE_URL}${product.image}`}
-                            alt={product.name}
-                            className="w-full md:w-1/2 h-auto object-cover rounded-lg"
-                        />
+                <img src={product.image} alt={product.name} className='w-full h-auto' />
+            </div>
+            <div>
+                <h2 className='text-2xl font-bold'>Laptop</h2>
+                <div className='flex items-center justify-between border-b border-gray-100 py-5'>
+
+                    <div className='flex items-center gap-3'>
+                        <div className='flex items-center text-blue-500 font-bold'>
+                            <span><FaBangladeshiTakaSign /></span>
+                            <span>750</span>
+                        </div>
+                        <div className='flex items-center line-through text-neutral-400'>
+                            <span><FaBangladeshiTakaSign /></span>
+                            <span>850</span>
+                        </div>
+                        <div className='bg-red-100 rounded-xl px-2 py-1'>
+                            <span className='text-red-600 font-semibold'>13%</span>
+                        </div>
                     </div>
-                )}
+                    <div className='flex items-center gap-2'>
+                        <span className='text-neutral-400'>1200 Sold</span>
+                        <div className='flex items-center justify-center gap-1'>
+                            <span className='font-bold'>4</span>
+                            <span><FaStar className='text-yellow-400' /> </span>
+                        </div>
 
-                <div>
-                    <h1>{product.name}</h1>
-                    <p>{product.price}</p>
-                    <p>{product.description}</p>
+                    </div>
+
                 </div>
-
-                <button onClick={handleAddToCart}>Add to Cart</button>
-                <button onClick={() => navigate('/')}>Back to home</button>
+                <div className='my-5'>
+                    <h2 className=''>Product Info</h2>
+                    <p>Premium model with enhanced life water tracking, advanced filter, and large volume</p>
+                </div>
+                <div className='flex items-center gap-2'>
+                    <button className='bg-black text-white font-semibold px-6 py-2 rounded-xl'>Add to Cart</button>
+                    <button className='border border-gray-200 rounded-xl px-6 py-2 font-semibold'>Checkout</button>
+                </div>
             </div>
         </div>
     );
