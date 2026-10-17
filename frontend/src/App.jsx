@@ -16,7 +16,7 @@ export default function App() {
     <Router>
       <Navbar></Navbar>
 
-      {/* <NavCategories></NavCategories> */}
+      <NavCategories></NavCategories>
 
       <Routes>
         <Route path="/" element={<ProductList />}></Route>

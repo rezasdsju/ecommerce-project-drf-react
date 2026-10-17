@@ -9,7 +9,8 @@ const navCategoriesPromise = async()=>{
 const NavCategories = () => {
     return (
         <div>
-            <Suspense>
+            {/* <h2>Nav Categories</h2> */}
+            <Suspense fallback='Loading Categories...'>
                 <Categories navCategoriesPromise={navCategoriesPromise()}></Categories>
             </Suspense>
         </div>
