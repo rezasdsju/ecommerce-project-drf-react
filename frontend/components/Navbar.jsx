@@ -38,15 +38,15 @@ const Navbar = () => {
                                     <button onClick={handleLogOut} className="bg-green-600 text-white border border-gray-100 rounded-xl px-4 py-2 font-bold">LogOut</button>
                                 </> :
                                 <div className="flex items-center justify-center gap-1 min-[400px]:gap-3">
-                                    <Link to="/login" className="bg-blue-700 border border-gray-100 rounded-xl px-4 py-2 text-white font-bold">সাইন ইন</Link>
-                                    <Link to="/signup" className="bg-blue-300 text-black border border-gray-100 rounded-xl px-4 py-2 font-bold">সাইন আপ</Link>
+                                    <Link to="/login" className="bg-white border border-gray-200 rounded-xl px-1 min-[400px]:px-4 py-2 text-black font-bold">সাইন ইন</Link>
+                                    <Link to="/signup" className="bg-blue-100 text-black border border-gray-100 rounded-xl px-1 min-[400px]:px-4 py-2 font-bold">সাইন আপ</Link>
                                 </div>
                         }
                     </div>
 
                     <Link
                         to="/cart"
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 transition-colors text-gray-700 hover:text-green-600 font-semibold relative"
+                        className="flex items-center gap-0 min-[400px]:gap-2 px-0 py-1.5 rounded-full hover:bg-gray-100 transition-colors text-gray-700 hover:text-green-600 font-semibold relative"
                     >
                         {/* Cart Icon with Notification Badge */}
                         <div className="relative flex items-center">
