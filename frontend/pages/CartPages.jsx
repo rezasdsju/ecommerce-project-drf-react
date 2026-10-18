@@ -16,7 +16,7 @@ const cartPages = () => {
 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-12  gap-4 ">
-                <div className="col-span-8 border border-gray-200 rounded-2xl px-2 py-2">
+                <div className="col-span-1 sm:col-span-8 border border-gray-200 rounded-2xl px-2 py-2">
 
                     <div>
                         <h2>আপনার শপিং কার্ট</h2>
@@ -35,7 +35,7 @@ const cartPages = () => {
                         }
                     </div>
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-1 sm:col-span-4">
                     <OrderSummary></OrderSummary>
                 </div>
             </div>

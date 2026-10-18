@@ -9,6 +9,8 @@ import { MdOutlineHorizontalRule } from "react-icons/md";
 import { PiLineVerticalBold } from "react-icons/pi";
 import { CartContext } from '../src/context/CartContext';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+// import { useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -17,7 +19,7 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const { cartItems,setCartItems } = useContext(CartContext);
+    const { cartItems, setCartItems } = useContext(CartContext);
     const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL;
 
     useEffect(() => {
@@ -50,18 +52,18 @@ const ProductDetails = () => {
         return <div>No Product Found</div>;
     }
     const handleAddToCart = () => {
-        setCartItems([...cartItems,product])
-        const numberOfAddedSameProduct = cartItems.filter(item=>item.id===product.id).length+1
+        setCartItems([...cartItems, product])
+        const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
         toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
         // console.log('Cart Added')
         const createdAt = JSON.parse(localStorage.getItem('createdAt'))
 
         if (!createdAt) {
-             const firtsItemCreatedAt = Date.now()
-             localStorage.setItem('createdAt',JSON.stringify(firtsItemCreatedAt))
+            const firtsItemCreatedAt = Date.now()
+            localStorage.setItem('createdAt', JSON.stringify(firtsItemCreatedAt))
         }
-        
-   
+
+
     }
     console.log(cartItems)
     return (
@@ -96,11 +98,11 @@ const ProductDetails = () => {
                         {/* <span className='text-neutral-400'>1200 Sold</span> */}
                         <div className='flex items-center justify-center gap-1'>
                             <span className='font-bold'>{product.rating}</span>
-<div className='flex items-center gap-0'>
+                            <div className='flex items-center gap-0'>
                                 {Array.from({ length: product.rating }, (_, i) => {
-                                return <span key={i}><FaStar className='text-yellow-400' /> </span>
-                            })}
-</div>
+                                    return <span key={i}><FaStar className='text-yellow-400' /> </span>
+                                })}
+                            </div>
                         </div>
 
                     </div>
@@ -112,7 +114,9 @@ const ProductDetails = () => {
                 </div>
                 <div className='flex items-center gap-2'>
                     <button onClick={handleAddToCart} className='bg-black text-white font-semibold px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-transform duration-150'>Add to Cart</button>
-                    <button className='border border-gray-200 rounded-xl px-6 py-2 font-semibold'>Checkout</button>
+                    {/* <Link to={`/checkout?productId=${product.id}`}> */}
+                    <button onClick={() => navigate(`/checkout?productId=${product.id}`)} className='border border-gray-200 rounded-xl px-6 py-2 font-semibold'>Checkout</button>
+                    {/* </Link> */}
                 </div>
             </div>
         </div>
