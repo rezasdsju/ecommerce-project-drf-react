@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 // import { useCart } from "../src/context/CartContext";
-import { clearTokens, getAccessToken } from "../src/utils/auth";
+import { clearTokens, getAccessToken } from "../../src/utils/auth";
 import { IoCartOutline } from "react-icons/io5";
 import { useContext } from "react";
-import { CartContext } from "../src/context/CartContext";
+import { CartContext } from "../../src/context/CartContext";
 
 const Navbar = () => {
     const { cartItems } = useContext(CartContext)

@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 // import ProductList from "../components/ProductList"
 import ProductDetails from "../pages/productDetails"
-import Navbar from '../components/Navbar'
+import Navbar from '../components/navbar/Navbar'
 import CartPages from "../pages/CartPages"
 import CheckoutPage from "../pages/CheckoutPage"
 import PrivateRouter from "../components/PrivateRouter"
 import Login from "../pages/Login"
 import SignUp from "../pages/Signup"
-import NavCategories from "../components/NavCategories"
+import NavCategories from "../components/navbar/NavCategories"
 import HomePage from "../pages/HomePage"
 
 
