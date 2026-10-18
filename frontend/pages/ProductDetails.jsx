@@ -51,7 +51,7 @@ const ProductDetails = () => {
     }
     const handleAddToCart = () => {
         setCartItems([...cartItems,product])
-        const numberOfAddedSameProduct = cartItems.filter(item=>item===product).length+1
+        const numberOfAddedSameProduct = cartItems.filter(item=>item.id===product.id).length+1
         toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
         console.log('Cart Added')
     }

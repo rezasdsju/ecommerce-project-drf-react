@@ -2,10 +2,22 @@ import { Link } from 'react-router-dom'
 import { FaStar } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { GiShoppingCart } from "react-icons/gi";
-import { MdOutlineHorizontalRule } from "react-icons/md";
-import { PiLineVerticalBold } from "react-icons/pi";
+import { useContext } from 'react';
+import { CartContext } from '../src/context/CartContext';
+// import { MdOutlineHorizontalRule } from "react-icons/md";
+// import { PiLineVerticalBold } from "react-icons/pi";
+import { toast } from 'react-toastify';
 
 const ProductCard = ({ product }) => {
+    const { cartItems, setCartItems } = useContext(CartContext)
+
+
+    const handleAddToCart = () => {
+        setCartItems([...cartItems, product])
+        const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
+        toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
+        console.log('Cart Added')
+    }
     return (
 
         <div className='border border-gray-100 px-2 py-2 rounded-2xl  space-y-4 '>
@@ -86,9 +98,9 @@ const ProductCard = ({ product }) => {
                     </div>
                 </div>
             </Link>
-            <div className='flex items-center justify-center gap-2  bg-green-700 rounded-2xl py-2 text-white cursor-pointer my-2'>
+            <div onClick={handleAddToCart} className='flex items-center justify-center gap-2  bg-green-700 rounded-2xl py-2 text-white cursor-pointer my-2 active:scale-95 transition-transform duration-150  '>
                 <span><GiShoppingCart /></span>
-                <span>কার্টে যোগ করুন</span>
+                <span >কার্টে যোগ করুন</span>
             </div>
         </div>
     );
