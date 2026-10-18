@@ -1,68 +1,46 @@
-
-import { useCart } from "../src/context/CartContext.jsx";
-import { Link } from "react-router-dom";
-const CartPages = () => {
-    const { cartItems, total, removeProductFromCart, updateQuantity } = useCart();
-
-
+import { useContext } from "react";
+import { IoChevronForwardSharp } from "react-icons/io5";
+import { CartContext } from "../src/context/CartContext";
+import CartItem from "../components/CartItem";
+import OrderSummary from "../components/OrderSummary";
+const cartPages = () => {
+    const { cartItems } = useContext(CartContext)
+    const currentItem = []
     return (
-        <div>
-            <h1>Your Cart</h1>
- 
-        
-            {cartItems.length === 0 ? (
-                <p>Cart is empty</p>
-            ) : (
-                cartItems.map((item) => (
-                    <div key={item.id}>
-                        <img
-                            src={`${import.meta.env.VITE_DJANGO_BASE_URL}${item.product_image}`}
-                            alt={item.product_name}
-                            className="w-24 h-24 object-cover"
-                        />
-                        <h2>{item.product_name}</h2>
-                        <p>Price: {item.product_price}</p>
 
-                        <p>Quantity: {item.quantity}</p>
+        <div className="my-10 mx-5">
+            <div className="flex items-center gap-1 mb-5">
+                <span>হোম</span>
+                <span><IoChevronForwardSharp /></span>
+                <span>কার্ট</span>
 
-                        <button
-                            onClick={() =>
-                                updateQuantity(item.id, item.quantity - 1)
-                            }
-                            disabled={item.quantity <= 1}
-                        >
-                            -
-                        </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-12  gap-4 ">
+                <div className="col-span-8 border border-gray-200 rounded-2xl px-2 py-2">
 
-                        <button
-                            onClick={() =>
-                                updateQuantity(item.id, item.quantity + 1)
-                            }
-                        >
-                            +
-                        </button>
-
-                        <button
-                            onClick={() => removeProductFromCart(item.id)}
-                        >
-                            Remove
-                        </button>
-
-                        <p>
-                            Subtotal:{" "}
-                            {(Number(item.product_price) * item.quantity).toFixed(2)}
-                        </p>
+                    <div>
+                        <h2>আপনার শপিং কার্ট</h2>
+                        <p>চেক আউট করার পূর্বে দেখে নিন সব ঠিক ঠাক আছে কিনা।</p>
                     </div>
-                ))
-            )}
+                    <div className="flex flex-col gap-4">
+                        {
+                            cartItems.map((item) => {
+                                if (!currentItem.includes(item.id)) {
+                                    currentItem.push(item.id)
+                                    return <CartItem key={item.id} product={item}></CartItem>
 
-            {cartItems.length > 0 && (
-                <h2>Total: {Number(total).toFixed(2)}</h2>
+                                }
 
-            )}
-           <Link to={`/checkout`}>Procedd to checkout</Link>
+                            })
+                        }
+                    </div>
+                </div>
+                <div className="col-span-4">
+                    <OrderSummary></OrderSummary>
+                </div>
+            </div>
         </div>
     );
 };
 
-export default CartPages;
+export default cartPages;

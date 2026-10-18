@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import ProductList from "../components/ProductList"
-import ProductDetails from "../pages/ProductDetails"
+// import ProductList from "../components/ProductList"
+import ProductDetails from "../pages/productDetails"
 import Navbar from '../components/Navbar'
-import CartPages from "../pages/cartPages"
+import CartPages from "../pages/CartPages"
 import CheckoutPage from "../pages/CheckoutPage"
 import PrivateRouter from "../components/PrivateRouter"
 import Login from "../pages/Login"
