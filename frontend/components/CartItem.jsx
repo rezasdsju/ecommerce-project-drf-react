@@ -93,7 +93,7 @@ const CartItem = ({ product }) => {
                     প্রতি {product.unit}: <span className="font-medium text-gray-600">{product.current_price}৳</span>
                 </span>
                 <p className="text-sm sm:text-base font-semibold text-gray-600 mt-0.5">
-                    {totalItems}টি = <span className="text-green-600 font-bold text-lg">{totalItems * product.current_price}৳</span>
+                    {totalItems} {product.unit} = <span className="text-green-600 font-bold text-lg">{totalItems * product.current_price}৳</span>
                 </p>
             </div>
 
