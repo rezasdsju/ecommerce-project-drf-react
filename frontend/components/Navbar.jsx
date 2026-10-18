@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useCart } from "../src/context/CartContext";
+// import { useCart } from "../src/context/CartContext";
 import { clearTokens, getAccessToken } from "../src/utils/auth";
 import { IoCartOutline } from "react-icons/io5";
+import { useContext } from "react";
+import { CartContext } from "../src/context/CartContext";
 
 const Navbar = () => {
-    const { cartItems } = useCart()
+    const { cartItems } = useContext(CartContext)
     const navigate = useNavigate()
     const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
     const isLoggenIn = !!getAccessToken()
@@ -42,15 +44,23 @@ const Navbar = () => {
                         }
                     </div>
 
-                    <div className="flex items-center justify-center gap-0">
-                        <span><IoCartOutline /></span>
-                        <Link to={`/cart`} className="text-neutral-500 font-bold">
-                            Cart
-                            {
-                                cartCount > 0 && (<span>{cartCount}</span>)
-                            }
-                        </Link>
-                    </div>
+                    <Link
+                        to="/cart"
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 transition-colors text-gray-700 hover:text-green-600 font-semibold relative"
+                    >
+                        {/* Cart Icon with Notification Badge */}
+                        <div className="relative flex items-center">
+                            <IoCartOutline className="text-2xl" />
+                            {cartItems.length > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse">
+                                    {cartItems.length}
+                                </span>
+                            )}
+                        </div>
+
+                        {/* Text */}
+                        <span className="text-sm font-bold">Cart</span>
+                    </Link>
                 </div>
 
 
