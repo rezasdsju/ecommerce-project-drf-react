@@ -21,7 +21,7 @@ const Navbar = () => {
                         to="/"
                         className="text-2xl font-bold bg-linear-to-r from-green-600 via-emerald-500 to-yellow-500 bg-clip-text text-transparent"
                     >
-                        Bazar-Sodai
+                        বাজার-সদাই
                     </Link>
                 </div>
 
