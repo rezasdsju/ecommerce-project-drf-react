@@ -3,6 +3,7 @@ import { HiMiniPlusSmall } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
 import { CartContext } from "../src/context/CartContext";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const CartItem = ({ product }) => {
     const { cartItems, setCartItems } = useContext(CartContext);
@@ -95,9 +96,11 @@ const CartItem = ({ product }) => {
                 <span className="text-xs sm:text-sm text-gray-400">
                     প্রতি {product.unit}: <span className="font-medium text-gray-600">{product.current_price}৳</span>
                 </span>
-                <p className="text-sm sm:text-base font-semibold text-gray-600 mt-0.5">
-                    {totalItems} {product.unit} = <span className="text-green-600 font-bold text-lg">{totalItems * product.current_price}৳</span>
-                </p>
+                <div className="flex items-center text-sm sm:text-base font-semibold text-gray-600 mt-0.5">
+                    <span>{totalItems} {product.unit} </span>
+                    <span><MdKeyboardDoubleArrowRight /></span>
+                     <span className="text-green-600 font-bold text-lg">{totalItems * product.current_price}৳</span>
+                </div>
             </div>
 
         </div>

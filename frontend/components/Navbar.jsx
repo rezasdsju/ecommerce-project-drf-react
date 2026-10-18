@@ -38,8 +38,8 @@ const Navbar = () => {
                                     <button onClick={handleLogOut} className="bg-green-600 text-white border border-gray-100 rounded-xl px-4 py-2 font-bold">LogOut</button>
                                 </> :
                                 <div className="flex items-center justify-center gap-1 min-[400px]:gap-3">
-                                    <Link to="/login" className="bg-blue-700 border border-gray-100 rounded-xl px-4 py-2 text-white font-bold">Login</Link>
-                                    <Link to="/signup" className="bg-blue-300 text-black border border-gray-100 rounded-xl px-4 py-2 font-bold">SignUp</Link>
+                                    <Link to="/login" className="bg-blue-700 border border-gray-100 rounded-xl px-4 py-2 text-white font-bold">সাইন ইন</Link>
+                                    <Link to="/signup" className="bg-blue-300 text-black border border-gray-100 rounded-xl px-4 py-2 font-bold">সাইন আপ</Link>
                                 </div>
                         }
                     </div>
@@ -59,7 +59,7 @@ const Navbar = () => {
                         </div>
 
                         {/* Text */}
-                        <span className="text-sm font-bold">Cart</span>
+                        <span className="text-sm font-bold">কার্ট</span>
                     </Link>
                 </div>
 
