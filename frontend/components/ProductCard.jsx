@@ -60,7 +60,7 @@ const ProductCard = ({ product }) => {
 
                     <div className='flex items-center flex-wrap gap-2'>
                         {
-                            product.tags.map((tag, index) => <p className={`${index % 3 === 0 ? 'bg-purple-100' : index % 3 === 1 ? 'bg-red-50' : 'bg-green-100'} rounded-xl px-3 py-1`}>{tag}</p>)
+                            product.tags.map((tag, index) => <p key={index} className={`${index % 3 === 0 ? 'bg-purple-100' : index % 3 === 1 ? 'bg-red-50' : 'bg-green-100'} rounded-xl px-3 py-1`}>{tag}</p>)
                         }
 
                     </div>
