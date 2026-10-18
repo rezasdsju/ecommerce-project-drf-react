@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
         <div className='border border-gray-100 px-2 py-2 rounded-2xl  space-y-4 '>
 
             <Link to={`/product/${product.id}`} className='space-y-2'>
-                <div className='relative'>
+                <div className='relative '>
                     {
                         product.image && <img
                             src={`${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}`}
@@ -19,43 +19,70 @@ const ProductCard = ({ product }) => {
 
                             className="w-full h-56 object-cover rounded-lg mb-4" />
                     }
-                    <span
-                        className="absolute top-0 right-0 bg-linear-to-r from-purple-600 via-pink-500 to-rose-500 text-white text-sm font-bold px-3 py-2
+                    {
+                        product.discount > 0 && <span
+                            className="absolute top-0 right-0 bg-linear-to-r from-purple-600 via-pink-500 to-rose-500 text-white text-sm font-bold px-3 py-2
     [clip-path:polygon(0%_0%,100%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]"
-                    >
-                        13% <br /> ছাড়
-                    </span>
+                        >
+                            {product.discount}% <br /> ছাড়
+                        </span>
+                    }
                 </div>
 
                 <div className='space-y-2'>
                     <div className='flex items-center text-2xl font-semibold text-gray-800 truncate'>
                         <h2 className="">{product.name}</h2>
-                        <span className='flex items-center'><MdOutlineHorizontalRule /></span>
-                        <span>5kg</span>
+                        {/* <span className='flex items-center'><MdOutlineHorizontalRule /></span>
+                        <span>5kg</span> */}
                     </div>
                     <div className='flex items-center gap-2'>
-                        <span><FaStar className='text-yellow-400' /> </span>
-                        <span><span className='font-bold'>4</span> (124 reviews)</span>
+                        <div className='flex items-center gap-0'>
+                            {Array.from({ length: product.rating }, (_, i) => {
+                                return <span key={i}><FaStar className='text-yellow-400' /> </span>
+                            })}
+                        </div>
+                        {/* <span><FaStar className='text-yellow-400' /> </span> */}
+                        <span><span className='font-bold'>{product.rating}</span> ({product.reviews} reviews)</span>
                     </div>
+
+
                     <div className='flex items-center flex-wrap gap-2'>
-                        <p className='bg-purple-100 rounded-xl px-3 py-1'>তাজা ও প্রাকৃতিক</p>
-                        {/* <span><PiLineVerticalBold /></span> */}
-                        <p className='bg-red-50 rounded-xl px-3 py-1'>সুগন্ধি</p>
-                        {/* <span><PiLineVerticalBold /></span> */}
-                        <p className='bg-green-100 rounded-xl px-3 py-1'>লম্বা দানা</p>
+                        {
+                            product.tags.map((tag, index) => <p className={`${index % 3 === 0 ? 'bg-purple-100' : index % 3 === 1 ? 'bg-red-50' : 'bg-green-100'} rounded-xl px-3 py-1`}>{tag}</p>)
+                        }
+
                     </div>
                     <div className='flex items-center gap-3'>
-                        <div className='flex items-center text-blue-500 font-bold'>
-                            <span><FaBangladeshiTakaSign /></span>
-                            <span>750</span>
+                        <div className='flex items-center gap-1'>
+                            <div className='flex items-center text-blue-500 font-bold'>
+                                <span><FaBangladeshiTakaSign /></span>
+                                <span>750</span>
+
+
+                            </div>
+
+                            {
+                                product.unit &&
+                                <div className='text-xs text-neutral-400'>
+                                    (প্রতি {product.unit})
+                                </div>
+                            }
                         </div>
-                        <div className='flex items-center line-through text-neutral-400'>
-                            <span><FaBangladeshiTakaSign /></span>
-                            <span>850</span>
-                        </div>
-                        <div className='bg-red-100 rounded-xl px-2 py-1'>
-                            <span className='text-red-600 font-semibold'>13%</span>
-                        </div>
+                        {
+                            product.discount > 0 &&
+                            <div className='flex items-center line-through text-neutral-400'>
+                                <span><FaBangladeshiTakaSign /></span>
+                                <span>850</span>
+                            </div>
+                        }
+
+                        {
+                            product.discount > 0 &&
+                            <div className='bg-red-100 rounded-xl px-2 py-1'>
+                                <span className='text-red-600 font-semibold'>{product.discount}%</span>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </Link>
