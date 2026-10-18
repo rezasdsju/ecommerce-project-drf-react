@@ -30,7 +30,7 @@ const Navbar = () => {
 
 
 
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center justify-center gap-1 min-[400px]:gap-3">
                     <div>
                         {
                             isLoggenIn ?
