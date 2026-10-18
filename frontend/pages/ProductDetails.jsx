@@ -1,5 +1,5 @@
 
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../src/context/CartContext';
 import { FaStar } from "react-icons/fa";
@@ -54,40 +54,50 @@ const ProductDetails = () => {
         addToCart(product.id)
     }
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 my-10'>
-            <div>
-                <img src={product.image} alt={product.name} className='w-full h-auto' />
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 my-10 max-w-7xl mx-auto px-2 sm:px-5'>
+            <div className='border border-gray-100 rounded-2xl overflow-hidden'>
+                <img src={product.image} alt={product.name} className='w-full h-auto object-cover ' />
             </div>
             <div>
-                <h2 className='text-2xl font-bold'>Laptop</h2>
+                <h2 className='text-2xl font-bold'>{product.name}</h2>
                 <div className='flex items-center justify-between border-b border-gray-100 py-5'>
 
                     <div className='flex items-center gap-3'>
                         <div className='flex items-center text-blue-500 font-bold'>
                             <span><FaBangladeshiTakaSign /></span>
-                            <span>750</span>
+                            <span>{product.current_price}</span>
                         </div>
-                        <div className='flex items-center line-through text-neutral-400'>
-                            <span><FaBangladeshiTakaSign /></span>
-                            <span>850</span>
-                        </div>
-                        <div className='bg-red-100 rounded-xl px-2 py-1'>
-                            <span className='text-red-600 font-semibold'>13%</span>
-                        </div>
+                        {
+                            product.discount > 0 &&
+                            <div className='flex items-center line-through text-neutral-400'>
+                                <span><FaBangladeshiTakaSign /></span>
+                                <span>{product.original_price}</span>
+                            </div>
+                        }
+                        {
+                            product.discount > 0 &&
+                            <div className='bg-red-100 rounded-xl px-2 py-1'>
+                                <span className='text-red-600 font-semibold'>{product.discount}%</span>
+                            </div>
+                        }
                     </div>
                     <div className='flex items-center gap-2'>
-                        <span className='text-neutral-400'>1200 Sold</span>
+                        {/* <span className='text-neutral-400'>1200 Sold</span> */}
                         <div className='flex items-center justify-center gap-1'>
-                            <span className='font-bold'>4</span>
-                            <span><FaStar className='text-yellow-400' /> </span>
+                            <span className='font-bold'>{product.rating}</span>
+<div className='flex items-center gap-0'>
+                                {Array.from({ length: product.rating }, (_, i) => {
+                                return <span key={i}><FaStar className='text-yellow-400' /> </span>
+                            })}
+</div>
                         </div>
 
                     </div>
 
                 </div>
                 <div className='my-5'>
-                    <h2 className=''>Product Info</h2>
-                    <p>Premium model with enhanced life water tracking, advanced filter, and large volume</p>
+                    <h2 className='text-red-400 font-bold'>পণ্য বিবরণ</h2>
+                    <p className='text-neutral-500'>{product.description}</p>
                 </div>
                 <div className='flex items-center gap-2'>
                     <button className='bg-black text-white font-semibold px-6 py-2 rounded-xl'>Add to Cart</button>
