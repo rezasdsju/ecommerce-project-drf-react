@@ -68,7 +68,7 @@ const ProductCard = ({ product }) => {
                         <div className='flex items-center gap-1'>
                             <div className='flex items-center text-blue-500 font-bold'>
                                 <span><FaBangladeshiTakaSign /></span>
-                                <span>750</span>
+                                <span>{product.current_price}</span>
 
 
                             </div>
@@ -84,7 +84,7 @@ const ProductCard = ({ product }) => {
                             product.discount > 0 &&
                             <div className='flex items-center line-through text-neutral-400'>
                                 <span><FaBangladeshiTakaSign /></span>
-                                <span>850</span>
+                                <span>{product.original_price}</span>
                             </div>
                         }
 
