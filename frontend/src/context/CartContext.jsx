@@ -1,12 +1,13 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-const CartContext = createContext();
+export const CartContext = createContext();
 import { authFetch, getAccessToken } from "../utils/auth";
 const CartProvider = ({ children }) => {
     const BASE_URL = import.meta.env.VITE_DJANGO_BASE_URL;
     const [total, setTotal] = useState(0);
     const [cartItems, setCartItems] = useState([]);
+    const [addToCart, setAddToCart] = useState([])
 
     const fetchCart = async () => {
         try {
@@ -26,21 +27,21 @@ const CartProvider = ({ children }) => {
         fetchCart();
     }, []);
 
-    const addToCart = async (product) => {
-        try {
-            const res = await authFetch(`${BASE_URL}/api/cart/add/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ product_id: product.id }),
-            });
-            if (!res.ok) throw new Error("Failed to add product");
-            await fetchCart();
-        } catch (error) {
-            console.error("Error adding to Cart:", error);
-        }
-    };
+    // const addToCart = async (product) => {
+    //     try {
+    //         const res = await authFetch(`${BASE_URL}/api/cart/add/`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({ product_id: product.id }),
+    //         });
+    //         if (!res.ok) throw new Error("Failed to add product");
+    //         await fetchCart();
+    //     } catch (error) {
+    //         console.error("Error adding to Cart:", error);
+    //     }
+    // };
 
     const removeProductFromCart = async (itemId) => {
         try {
@@ -91,8 +92,10 @@ const CartProvider = ({ children }) => {
         <CartContext.Provider
             value={{
                 cartItems,
+                setCartItems,
                 total,
                 addToCart,
+                setAddToCart,
                 removeProductFromCart,
                 updateQuantity,
                 clearCart
