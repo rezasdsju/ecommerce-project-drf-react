@@ -30,6 +30,14 @@ def get_categories(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def get_category(request, slug):
+    try: 
+        category = Category.objects.get(slug=slug)
+        serializer = Categoryserializer(category, context={'request': request})
+        return Response(serializer.data)
+    except Category.DoesNotExist:
+        return Response({'error':'Category Not Found'}, status=404)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
