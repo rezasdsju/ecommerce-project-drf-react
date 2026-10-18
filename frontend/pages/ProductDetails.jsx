@@ -53,7 +53,15 @@ const ProductDetails = () => {
         setCartItems([...cartItems,product])
         const numberOfAddedSameProduct = cartItems.filter(item=>item.id===product.id).length+1
         toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
-        console.log('Cart Added')
+        // console.log('Cart Added')
+        const createdAt = JSON.parse(localStorage.getItem('createdAt'))
+
+        if (!createdAt) {
+             const firtsItemCreatedAt = Date.now()
+             localStorage.setItem('createdAt',JSON.stringify(firtsItemCreatedAt))
+        }
+        
+   
     }
     console.log(cartItems)
     return (
