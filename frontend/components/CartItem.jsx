@@ -30,7 +30,10 @@ const CartItem = ({ product }) => {
             
             <div className="col-span-3 sm:col-span-2 bg-gray-50 border border-gray-100 p-2 rounded-xl flex items-center justify-center overflow-hidden">
                 <img 
-                    src={product.image} 
+                    src={
+                        product.image?.startsWith('http')? product.image:
+                        `${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}`
+                    } 
                     alt={product.name} 
                     className="w-16 h-16 sm:w-20 sm:h-20 object-contain hover:scale-105 transition-transform duration-300" 
                 />
