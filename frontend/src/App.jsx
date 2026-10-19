@@ -9,7 +9,7 @@ import Login from "../pages/Login"
 import SignUp from "../pages/Signup"
 import NavCategories from "../components/navbar/NavCategories"
 import HomePage from "../pages/HomePage"
-
+import CategorizedProductsPage from "../pages/CategorizedProductsPage"
 
 
 export default function App() {
@@ -24,7 +24,7 @@ export default function App() {
 
         <Route path="/product/:id" element={<ProductDetails />}></Route>
         <Route path="/cart" element={<CartPages />}></Route>
-
+        <Route path="/categories/:slug" element={<CategorizedProductsPage/>}></Route>
         {/* <Route element={<PrivateRouter />}> */}
           <Route path="/checkout" element={<CheckoutPage />}></Route>
         {/* </Route> */}
