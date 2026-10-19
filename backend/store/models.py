@@ -56,7 +56,7 @@ class Order(models.Model):
     phone = models.CharField(max_length=50,null=True, blank=True)
     payment_method = models.CharField(max_length=50,null=True, blank=True)
     product_name = models.CharField(max_length=50,null=True, blank=True)
-    product_quantity = models.IntegerField()
+    product_quantity = models.CharField(max_length=30,null=True,blank=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 

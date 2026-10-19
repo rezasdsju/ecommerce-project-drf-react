@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from .models import Order, OrderItem, Product, Category, Cart, CartItem
 from .serializers import ProductSerializer, Categoryserializer, CartItemSerializer, CartSerializer, RegisterSerializer, UserSerializer
-
+import re
 @api_view(['GET'])
 def get_products(request):
     products = Product.objects.all()
@@ -124,7 +124,13 @@ def order_create(request):
             )
         try:
             product_id=int(product_id)
-            product_quantity=int(product_quantity)
+            match = re.search(r'\d+', str(product_quantity))
+            if not match:
+                return Response(
+                    {'error': 'Invalid product quantity'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            product_quantity = int(match.group())
             if product_id<1 or product_quantity<1:
                 raise ValueError
         except (TypeError,ValueError):
@@ -153,7 +159,7 @@ def order_create(request):
             phone=phone,
             payment_method=payment_method,
             product_name=product.name,
-            product_quantity=product_quantity,
+            product_quantity=f'{product_quantity} {product.unit}',
             total_amount=total_amount
         )
         return Response(
