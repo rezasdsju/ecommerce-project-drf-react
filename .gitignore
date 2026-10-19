@@ -1,8 +1,47 @@
-
-# Environment variables
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
 backend/.env
 frontend/.env
 
 # Python cache
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Python virtual environments
+backend/venv/
+backend/env/
+backend/.venv/
+venv/
+env/
+.venv/
+
+# Django logs and local settings
+*.log
+local_settings.py
+
+# Local database
+db.sqlite3
+db.sqlite3-journal
+
+# Testing and coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Python build files
+build/
+dist/
+*.egg-info/
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Frontend dependencies and build output
+frontend/node_modules/
+frontend/dist/
