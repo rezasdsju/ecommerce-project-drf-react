@@ -26,7 +26,10 @@ const ProductCard = ({ product }) => {
                 <div className='relative '>
                     {
                         product.image && <img
-                            src={`${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}`}
+                            src={
+                                product.image.startsWith('http')? product.image:
+                                `${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}` 
+                             }
                             alt={product.name}
 
                             className="w-full h-56 object-cover rounded-lg mb-4" />
