@@ -30,7 +30,11 @@ SECRET_KEY = 'django-insecure-rasiqx!zzk$sgl^085sww*7elq5x0tud=-!94r&xw!_2kq2i9+
 # DEBUG = True
 DEBUG = config('DEBUG',default=False,cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'bazar-sodai-api.satbeta.top',
+]
 
 
 # Application definition
