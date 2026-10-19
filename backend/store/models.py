@@ -48,29 +48,55 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username 
     
+# class Order(models.Model):
+#     # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     customer_name = models.CharField(max_length=50,null=True, blank=True)
+#     address = models.CharField(max_length=50,null=True, blank=True)
+#     phone = models.CharField(max_length=50,null=True, blank=True)
+#     payment_method = models.CharField(max_length=50,null=True, blank=True)
+#     product_name = models.CharField(max_length=50,null=True, blank=True)
+#     product_quantity = models.CharField(max_length=30,null=True,blank=True)
+#     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+#     def __str__(self):
+#         return f'Order {self.id}'
+
+
 class Order(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    customer_name = models.CharField(max_length=50,null=True, blank=True)
-    address = models.CharField(max_length=50,null=True, blank=True)
-    phone = models.CharField(max_length=50,null=True, blank=True)
-    payment_method = models.CharField(max_length=50,null=True, blank=True)
-    product_name = models.CharField(max_length=50,null=True, blank=True)
-    product_quantity = models.CharField(max_length=30,null=True,blank=True)
+    customer_name = models.CharField(max_length=255, null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    phone = models.CharField(max_length=20,null=True, blank=True)
+    number_of_products = models.PositiveIntegerField(default=0)
+    # ordered_products_info = models.JSONField(default=list)
+    payment_method = models.CharField(max_length=20,null=True,blank=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
-
     def __str__(self):
-        return f'Order {self.id}'
+        return f"Order #{self.id} - {self.customer_name}"
     
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)    
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveBigIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    
+class OrderedProductInfo(models.Model):
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name='ordered_products'
+    )
+    product_name = models.CharField(max_length=300, null=True, blank=True)
+    quantity = models.CharField(max_length=50, null=True, blank=True)
+    item_price_total = models.DecimalField(max_digits=10,decimal_places=2)
     
     def __str__(self):
-        return f'{self.quantity} x {self.product.name}'
+        return self.product_name
+# class OrderItem(models.Model):
+#     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)    
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.PositiveBigIntegerField(default=1)
+#     price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+#     def __str__(self):
+#         return f'{self.quantity} x {self.product.name}'
     
     
     
