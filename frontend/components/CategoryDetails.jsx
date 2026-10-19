@@ -3,8 +3,10 @@ import { use, useState } from "react";
 import { IoChevronForward } from "react-icons/io5";
 import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
-const CategoryDetails = ({ categorizedProductsPromise }) => {
-    const category = use(categorizedProductsPromise)
+
+
+const CategoryDetails = ({ category }) => {
+    // const category = use(categorizedProductsPromise)
     console.log('category: ', category)
     const products = category.products
     console.log('products: ', products)
