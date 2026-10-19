@@ -68,7 +68,7 @@ const ProductDetails = () => {
     console.log(cartItems)
     return (
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 my-10 max-w-7xl mx-auto px-2 sm:px-5'>
-            <div className='border border-gray-100 rounded-2xl overflow-hidden'>
+            <div className='border border-gray-100 rounded-2xl max-h-130 overflow-hidden'>
                 <img src={product.image} alt={product.name} className='w-full h-auto object-cover ' />
             </div>
             <div>
