@@ -6,7 +6,7 @@ Bazar Sodai is a web-based daily essentials shopping application that allows use
 
 - **Frontend:** [Bazar Sodai](https://bazar-sodai-frontend-ten.vercel.app/)
 - **Backend API:** [Products API](https://bazar-sodai-api.satbeta.top/api/products/)
-- **Admin Panel:** [Django Administration](https://bazar-sodai-api.satbeta.top/admin/)
+
 
 ## ✨ Features
 
