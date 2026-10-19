@@ -6,7 +6,7 @@ import { TbCurrencyTaka } from "react-icons/tb";
 const OrderSummary = () => {
     const [paymentMethod, setPaymentMethod] = useState('')
 
-    const { cartItems } = useContext(CartContext)
+    const { cartItems, setCartItems } = useContext(CartContext)
     const currentItems = []
     console.log(typeof cartItems[0]?.current_price);
     const totalAmountOfCartProducts = cartItems.reduce((sum, item) => sum + Number(item.current_price), 0)
@@ -43,6 +43,7 @@ const OrderSummary = () => {
         })
         const result = await res.json()
         console.log('result: ', result)
+        setCartItems([])
 
     }
     return (
