@@ -34,8 +34,18 @@ def get_categories(request):
 def get_category(request, slug):
     try: 
         category = Category.objects.get(slug=slug)
-        serializer = Categoryserializer(category, context={'request': request})
-        return Response(serializer.data)
+        products = category.products.all()
+        product_serializer = ProductSerializer(
+            products,
+            many=True,
+            context = {'request':request}
+        )
+        # serializer = Categoryserializer(category, context={'request': request})
+        return Response({
+            'category':category.name,
+            'slug':category.slug,
+            'products':product_serializer.data
+        })
     except Category.DoesNotExist:
         return Response({'error':'Category Not Found'}, status=404)
 
