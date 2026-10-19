@@ -103,7 +103,7 @@ def update_cart_quantity(request):
 def order_create(request):
     try:
         data = request.data 
-        customer_name = data.get('name','').strip()
+        customer_name = data.get('customer_name','').strip()
         address = data.get('address','').strip()
         phone = data.get('phone','').strip()
         payment_method = data.get('paymentMethod','cod')
