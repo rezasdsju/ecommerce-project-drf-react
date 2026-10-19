@@ -15,15 +15,15 @@ const OrderSummaryForCheckOutPage = ({ product, quantity, setQuantity }) => {
     //     setPaymentMethod(value)
     // }
     console.log('payment method: ', paymentMethod)
-
+    const orderedProducts = [{product_id:product.id,product_quantity:quantity}]
     const handleDeliveryDataSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const deliveryData = Object.fromEntries(formData.entries())
 
         deliveryData.paymentMethod = paymentMethod
-        deliveryData.product_id = product.id
-        deliveryData.product_quantity = quantity
+        // deliveryData.product_id = product.id
+        // deliveryData.product_quantity = quantity
         // deliveryData.total_amount = Number(quantity)*Number(product.current_price)
         console.log('deliveryData: ', deliveryData)
 
@@ -32,7 +32,7 @@ const OrderSummaryForCheckOutPage = ({ product, quantity, setQuantity }) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(deliveryData)
+            body: JSON.stringify({ordered_products:orderedProducts, delivery_info:deliveryData})
         })
         const result =await res.json()
         console.log('result: ',result)
@@ -96,13 +96,13 @@ const OrderSummaryForCheckOutPage = ({ product, quantity, setQuantity }) => {
                 <div className="space-y-2 pt-2">
                     <span className="font-semibold text-gray-700 block">Payment</span>
                     <div className="flex items-center gap-2 flex-wrap">
-                        <button onClick={() => setPaymentMethod('cod')} className={` ${paymentMethod === 'cod' ? 'border border-green-500 bg-green-50 text-green-700' : 'border border-gray-200'}   font-medium rounded-xl px-3 py-1.5 text-sm cursor-pointer`}>
+                        <button type="button" onClick={() => setPaymentMethod('cod')} className={` ${paymentMethod === 'cod' ? 'border border-green-500 bg-green-50 text-green-700' : 'border border-gray-200'}   font-medium rounded-xl px-3 py-1.5 text-sm cursor-pointer`}>
                             ক্যাশ অন ডেলিভারি
                         </button>
-                        <button onClick={() => setPaymentMethod('bcash')} className={` ${paymentMethod === 'bcash' ? 'border border-green-500 bg-green-50 text-green-700' : 'border border-gray-200'}  hover:border-gray-400 text-gray-600 rounded-xl px-3 py-1.5 text-sm cursor-pointer transition`}>
+                        <button type="button" onClick={() => setPaymentMethod('bcash')} className={` ${paymentMethod === 'bcash' ? 'border border-green-500 bg-green-50 text-green-700' : 'border border-gray-200'}  hover:border-gray-400 text-gray-600 rounded-xl px-3 py-1.5 text-sm cursor-pointer transition`}>
                             বিকাশ
                         </button>
-                        <button onClick={() => setPaymentMethod('nogod')} className={`${paymentMethod === 'nogod' ? 'border border-green-500 bg-green-50 text-green-700' : 'border border-gray-200'}  hover:border-gray-400 text-gray-600 rounded-xl px-3 py-1.5 text-sm cursor-pointer transition`}>
+                        <button type="button" onClick={() => setPaymentMethod('nogod')} className={`${paymentMethod === 'nogod' ? 'border border-green-500 bg-green-50 text-green-700' : 'border border-gray-200'}  hover:border-gray-400 text-gray-600 rounded-xl px-3 py-1.5 text-sm cursor-pointer transition`}>
                             নগদ
                         </button>
                     </div>
