@@ -49,10 +49,17 @@ class UserProfile(models.Model):
         return self.user.username 
     
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    customer_name = models.CharField(max_length=50,null=True, blank=True)
+    address = models.CharField(max_length=50,null=True, blank=True)
+    phone = models.CharField(max_length=50,null=True, blank=True)
+    payment_method = models.CharField(max_length=50,null=True, blank=True)
+    product_name = models.CharField(max_length=50,null=True, blank=True)
+    product_quantity = models.IntegerField()
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    
+
+
     def __str__(self):
         return f'Order {self.id}'
     

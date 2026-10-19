@@ -99,35 +99,77 @@ def update_cart_quantity(request):
         
         
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def order_create(request):
     try:
         data = request.data 
-        name = data.get('name')
-        address = data.get('address')
-        phone = data.get('phone')
-        payment_method = data.get('payment_method','COD')
+        customer_name = data.get('name','').strip()
+        address = data.get('address','').strip()
+        phone = data.get('phone','').strip()
+        payment_method = data.get('paymentMethod','cod')
+        product_id = data.get('product_id','')
+        product_quantity = data.get('product_quantity')
         
-        #phone validate
-        if not phone or not phone.isdigit() or len(phone)<10:
-            return Response({'error':'Invalid Phone Number'},status=400)
-        cart, created = Cart.objects.get_or_create(user=request.user)
-        if not cart.items.exists():
-            return Response({'error':'Cart is Empty'},status=400)
-        total = sum([item.product.price*item.quantity for item in cart.items.all()])
-        order = Order.objects.create(
-            user=request.user,
-            total_amount = total
-        )
-        for item in cart.items.all():
-            OrderItem.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                price=item.product.price
+        if not customer_name or not address or not phone:
+            return Response(
+                {
+                    'error':'Name, address and phone are required',
+                },
+                status=status.HTTP_400_BAD_REQUEST
             )
-        cart.items.all().delete()
-        return Response({'message':'Order Created Successfully','order_id':order.id})
+        if not phone.isdigit() or len(phone)<10:
+            return Response(
+                {'error':'Invalid Phone Number'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
+            product_id=int(product_id)
+            product_quantity=int(product_quantity)
+            if product_id<1 or product_quantity<1:
+                raise ValueError
+        except (TypeError,ValueError):
+            return Response(
+                {'error':'Valid product id and quantity are required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response(
+                {'error':'Product Not Found'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if product.current_price is None:
+            return Response(
+                {'error':'Product Price is unavailable'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        total_amount = product.current_price*product_quantity
+        
+        order = Order.objects.create(
+            customer_name=customer_name,
+            address=address,
+            phone=phone,
+            payment_method=payment_method,
+            product_name=product.name,
+            product_quantity=product_quantity,
+            total_amount=total_amount
+        )
+        return Response(
+            {
+                'message':'Order Created Successfully',
+                'order':{
+                    'id':order.id,
+                    'customer_name':order.customer_name,
+                    'product_name':order.product_name,
+                    'product_quantity':order.product_quantity,
+                    'total_amount':str(order.total_amount),
+                    'payment_method':order.payment_method
+                }
+            },
+            status=status.HTTP_201_CREATED
+        )
     except Exception as e:
         return Response({'error':str(e)},status=500)
     
