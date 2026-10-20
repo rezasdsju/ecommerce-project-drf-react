@@ -6,7 +6,7 @@ import CartPages from "../pages/CartPages"
 import CheckoutPage from "../pages/CheckoutPage"
 import PrivateRouter from "../components/PrivateRouter"
 import Login from "../pages/Login"
-import SignUp from "../pages/Signup"
+import SignUpPage from "../pages/SignUpPage"
 import NavCategories from "../components/navbar/NavCategories"
 import HomePage from "../pages/HomePage"
 import CategorizedProductsPage from "../pages/CategorizedProductsPage"
@@ -32,7 +32,7 @@ export default function App() {
           <Route path="/checkout" element={<CheckoutPage />}></Route>
           {/* </Route> */}
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/signup" element={<SignUpPage />}></Route>
         </Routes>
         <Footer></Footer>
       {/* </Router> */}

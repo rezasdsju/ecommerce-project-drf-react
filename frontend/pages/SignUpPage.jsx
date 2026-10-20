@@ -1,0 +1,65 @@
+import { toast } from "react-toastify";
+
+const SignUpPage = () => {
+    const handleSignUp = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const userSignUpInfo = Object.fromEntries(formData.entries())
+        // console.log('userSignUpInfo: ',userSignUpInfo)
+
+        if (userSignUpInfo.password !== userSignUpInfo.password2) {
+            toast.error(`পাসওয়ার্ড মিলে নি। অনুগ্রহ করে সঠিক পাসওয়ার্ড দিন`)
+            return
+        }
+        const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{8,}$/;
+        console.log(strongPasswordRegex.test("2313Rafi@"));
+
+        if (!strongPasswordRegex.test(userSignUpInfo.password)) {
+            toast.info("অনুগ্রহ করে শক্তিশালী পাসওয়ার্ড ব্যবহার করুন");
+            return
+        }
+
+        const res = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/register/`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userSignUpInfo)
+        })
+
+        console.log("Status:", res.status);
+        console.log("Success:", res.ok);
+        const result = await res.json()
+        console.log('result after submit data: ', result)
+
+
+    }
+    return (
+        <div className="max-w-100 mx-auto my-10 px-2">
+            <div>
+                <div className="text-center my-5">
+                    <h2 className="text-black font-bold text-2xl">নতুন অ্যাকাউন্ট তৈরি করুন</h2>
+                </div>
+                <form onSubmit={handleSignUp}>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box  max-w-100 border p-4">
+
+
+                        <label className="label">নাম</label>
+                        <input name="username" type="name" className="input w-full" placeholder="জসিম উদ্দিন" required />
+                        <label className="label">ইমেইল</label>
+                        <input name="email" type="email" className="input w-full" placeholder="jsuddin@gmail.com" required />
+
+                        <label className="label">Password</label>
+                        <input name="password" type="password" className="input w-full" placeholder="পাসওয়ার্ড" required />
+                        <label className="label">Password</label>
+                        <input name="password2" type="password" className="input w-full" placeholder="পাসওয়ার্ড" required />
+
+                        <button type="submit" className="btn bg-green-700 text-white font-bold mt-4">সাইন আপ</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default SignUpPage;
