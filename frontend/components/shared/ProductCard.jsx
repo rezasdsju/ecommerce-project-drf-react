@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { GiShoppingCart } from "react-icons/gi";
 import { useContext } from 'react';
-import { CartContext } from '../src/context/CartContext';
+import { CartContext } from '../../src/context/CartContext';
 // import { MdOutlineHorizontalRule } from "react-icons/md";
 // import { PiLineVerticalBold } from "react-icons/pi";
 import { toast } from 'react-toastify';

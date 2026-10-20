@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../ProductCard";
+import ProductCard from "../shared/ProductCard";
 import SkeletonLoadingForProductList from "../loading/SkeletonLoadingForProductList";
 const ProductList = () => {
     const [products, setProducts] = useState([])
