@@ -7,6 +7,14 @@ from django.contrib.auth.models import User
 from .models import Order, Product, Category, Cart, CartItem,OrderedProductInfo
 from .serializers import ProductSerializer, Categoryserializer, CartItemSerializer, CartSerializer, RegisterSerializer, UserSerializer
 import re
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    username = request.user.username
+    return Response({'username':username})
+
 @api_view(['GET'])
 def get_products(request):
     products = Product.objects.all()

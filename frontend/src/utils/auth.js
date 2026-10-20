@@ -1,27 +1,27 @@
 export const saveToken = (token)=>{
+    // console.log('token.access: ',token.access)
+    // console.log('token.refresh: ',token.refresh)
     localStorage.setItem('access_token',token.access)
     localStorage.setItem('refresh_token',token.refresh)
 }
 
-export const clearTokens = () => {
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('refresh_token')
-}
 
 export const getAccessToken = ()=>{
-    return localStorage.getItem("access_token")
+    const token = localStorage.getItem('access_token')
+
+    // console.log('get access token: ',token)
+    return token
 }
 
-export const authFetch = (url, options={})=>{
-    const token = getAccessToken();
-    const headers = options.headers ? {...options.headers} : {}
-    if (token){
-        headers['Authorization'] = `Bearer ${token}`
-    }
-    headers['Content-Type'] = 'application/json'
-    return fetch(url,{
-        ...options,
-        headers,
+export const getRefreshToken = ()=>{
+    const token = localStorage.getItem('refresh_token')
+    // console.log('refreshToken: ',token)
+    return token
+}
 
-    })
+
+
+export const clearTokens = ()=>{
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
 }
