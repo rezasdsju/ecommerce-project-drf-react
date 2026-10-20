@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { CartContext } from "../src/context/CartContext";
-import CartItem from "../components/CartItem";
-import OrderSummary from "../components/OrderSummary";
+// import CartItem from "../components/checkout/CartItem";
+// import OrderSummary from "../components/carts/OrderSummary";
 import { useSearchParams } from "react-router-dom";
 import OrderSummaryForCheckOutPage from "../components/OrderSummaryForCheckOutPage";
 import CartItemForCheckout from "../components/CartItemForCheckout";
