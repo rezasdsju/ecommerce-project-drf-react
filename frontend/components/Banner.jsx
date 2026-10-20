@@ -7,7 +7,7 @@ const Banner = () => {
                 <h2 className='text-3xl font-bold bg-linear-to-r from-blue-500 to-green-400 bg-clip-text text-transparent'>সেরা দামে টাটকা বাজার!</h2>
                 <p className='text-2xl font-semibold bg-linear-to-r from-red-400 to-purple-500 bg-clip-text text-transparent'>আপনার নিত্যপ্রয়োজনীয় পণ্য এখন আপনার ঘরের দোরগোড়ায়</p>
                 <p>চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম সহ অসংখ্য নিত্য পণ্য পাচ্ছেন একদম তাজা ও সাশ্রয়ী মূলে</p>
-                <button className='bg-green-700 px-5 py-2 text-white rounded-2xl'>সব পণ্য দেখুন</button>
+                <button onClick={()=>document.getElementById('all-products').scrollIntoView({behavior:'smooth'})} className='bg-green-700 px-5 py-2 text-white rounded-2xl cursor-pointer active:scale-95 transition-transform duration-150'>সব পণ্য দেখুন</button>
             </div>
             <div className='flex items-center justify-center bg-linear-to-br from-red-50 to-green-50 rounded-2xl py-5'>
                 <img src={BannerImage} alt="Banner" height={400} width={350} className='rounded-xl'/>
