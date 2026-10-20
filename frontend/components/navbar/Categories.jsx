@@ -3,6 +3,7 @@ import NavCategoryCard from "./NavCategoryCard";
 import { FiChevronDown } from "react-icons/fi";
 import { IoChevronUp } from "react-icons/io5";
 
+
 const Categories = ({ navCategoriesPromise }) => {
     const [isExpanded, setIsExpanded] = useState(false)
     const categories = use(navCategoriesPromise)
@@ -14,12 +15,12 @@ const Categories = ({ navCategoriesPromise }) => {
 
 
                     <div className="flex items-center gap-5 justify-center">
-                        <div className="flex justify-center gap-5 flex-wrap sm:hidden">
+                        <div className="flex justify-center gap-0 flex-wrap sm:hidden">
                             {
-                                visibleCategories.map(category => <NavCategoryCard key={category.id} category={category}></NavCategoryCard>)
+                                visibleCategories.map(category => <NavCategoryCard key={category.id} category={category} ></NavCategoryCard>)
                             }
                         </div>
-                        <div className="hidden sm:flex justify-center gap-5 flex-wrap  ">
+                        <div className="hidden sm:flex justify-center gap-0 flex-wrap  ">
                             {
                                 categories.map(category => <NavCategoryCard key={category.id} category={category}></NavCategoryCard>)
                             }
