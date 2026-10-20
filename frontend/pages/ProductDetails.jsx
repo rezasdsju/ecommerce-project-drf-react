@@ -113,9 +113,9 @@ const ProductDetails = () => {
                     <p className='text-neutral-500'>{product.description}</p>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <button onClick={handleAddToCart} className='bg-black text-white font-semibold px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-transform duration-150'>Add to Cart</button>
+                    <button onClick={handleAddToCart} className='bg-black text-white font-semibold px-6 py-2 rounded-xl cursor-pointer active:scale-95 transition-transform duration-150'>কার্টে যোগ করুন</button>
                     {/* <Link to={`/checkout?productId=${product.id}`}> */}
-                    <button onClick={() => navigate(`/checkout?productId=${product.id}`)} className='border border-gray-200 rounded-xl px-6 py-2 font-semibold'>Checkout</button>
+                    <button onClick={() => navigate(`/checkout?productId=${product.id}`)} className='border border-gray-200 rounded-xl px-6 py-2 font-semibold active:scale-85 transition-transform duration-150 cursor-pointer'>অর্ডার করুন</button>
                     {/* </Link> */}
                 </div>
             </div>
