@@ -4,19 +4,30 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { GiShoppingCart } from "react-icons/gi";
 import { useContext } from 'react';
 import { CartContext } from '../../src/context/CartContext';
-// import { MdOutlineHorizontalRule } from "react-icons/md";
-// import { PiLineVerticalBold } from "react-icons/pi";
+
 import { toast } from 'react-toastify';
+import { CiCircleMinus } from "react-icons/ci";
+import { CiCirclePlus } from "react-icons/ci";
 
 const ProductCard = ({ product }) => {
     const { cartItems, setCartItems } = useContext(CartContext)
+    
 
-
+  
+    const matchedProducts = cartItems.filter(item => item.id === product.id)
+    console.log('matchedProducts: ', matchedProducts)
     const handleAddToCart = () => {
         setCartItems([...cartItems, product])
         const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
-        toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
-        console.log('Cart Added')
+        // toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
+        toast.success(`কার্টে অ্যাড করা হয়েছে`)
+    
+    }
+    const handleDeleteFromCart = ()=>{
+        const firstIndex = cartItems.findIndex(item=>item.id===product.id)
+        const remaining = cartItems.filter((_,index)=>index!==firstIndex)
+        setCartItems(remaining)
+        toast.info(`কার্ট থেকে সরানো হয়েছে`)
     }
     return (
 
@@ -27,9 +38,9 @@ const ProductCard = ({ product }) => {
                     {
                         product.image && <img
                             src={
-                                product.image.startsWith('http')? product.image:
-                                `${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}` 
-                             }
+                                product.image.startsWith('http') ? product.image :
+                                    `${import.meta.env.VITE_DJANGO_BASE_URL}${product.image}`
+                            }
                             alt={product.name}
 
                             className="w-full h-56 object-cover rounded-lg mb-4" />
@@ -101,10 +112,22 @@ const ProductCard = ({ product }) => {
                     </div>
                 </div>
             </Link>
-            <div onClick={handleAddToCart} className='flex items-center justify-center gap-2  bg-green-700 rounded-2xl py-2 text-white cursor-pointer my-2 active:scale-95 transition-transform duration-150  '>
-                <span><GiShoppingCart /></span>
-                <span >কার্টে যোগ করুন</span>
+
+            <div>
+                {
+                    matchedProducts.length > 0 ? 
+                    <div className='flex items-center justify-center gap-5 bg-gray-100 border border-green-100 rounded-2xl px-4 py-2'>
+                        <span onClick={handleDeleteFromCart} className='cursor-pointer'><CiCircleMinus /></span>
+                        <span className='bg-green-200 rounded-xl px-3 py-1 '>{matchedProducts.length}</span>
+                        <span onClick={handleAddToCart} className='cursor-pointer'><CiCirclePlus /></span>
+                    </div> :
+                        <div onClick={handleAddToCart} className='flex items-center justify-center gap-2  bg-green-700 rounded-2xl py-2 text-white cursor-pointer my-2 active:scale-95 transition-transform duration-150  '>
+                            <span><GiShoppingCart /></span>
+                            <span >কার্টে যোগ করুন</span>
+                        </div>
+                }
             </div>
+
         </div>
     );
 };
