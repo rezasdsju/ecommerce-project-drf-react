@@ -4,8 +4,8 @@ import { CartContext } from "../src/context/CartContext";
 // import CartItem from "../components/checkout/CartItem";
 // import OrderSummary from "../components/carts/OrderSummary";
 import { useSearchParams } from "react-router-dom";
-import OrderSummaryForCheckOutPage from "../components/OrderSummaryForCheckOutPage";
-import CartItemForCheckout from "../components/CartItemForCheckout";
+import OrderSummaryForCheckOutPage from "../components/checkout/OrderSummaryForCheckOutPage";
+import CartItemForCheckout from "../components/checkout/CartItemForCheckout";
 import { Link } from "react-router-dom";
 import ProgressBarLoading from "../components/loading/ProgressBarLoading";
 const CheckoutPage = () => {

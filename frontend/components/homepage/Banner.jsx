@@ -1,5 +1,5 @@
 
-import BannerImage from '../src/assets/banner-bazar-sodai.jfif'
+import BannerImage from '../../src/assets/banner-bazar-sodai.jfif'
 const Banner = () => {
     return (
         <div className='grid sm:grid-cols-2 mx-2 sm:mx-10 my-10 border border-gray-100 rounded-2xl px-2 min-[400px]:px-5 py-5 min-[400px]:py-10 gap-4'>

@@ -1,4 +1,4 @@
-import Banner from "../components/shared/Banner";
+import Banner from "../components/homepage/Banner";
 import ProductList from "../components/homepage/ProductList";
 const HomePage = () => {
     return (

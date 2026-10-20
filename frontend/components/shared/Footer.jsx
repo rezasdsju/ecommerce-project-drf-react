@@ -6,7 +6,7 @@ import { BiCategoryAlt } from "react-icons/bi";
 import { IoCall } from "react-icons/io5";
 import { PiLineVertical } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import FooterLogo from '../public/bazar-sodai-footer-logo.jpg'
+import FooterLogo from '../../public/bazar-sodai-footer-logo.jpg'
 import { useEffect, useState } from "react";
 
 const Footer = () => {
