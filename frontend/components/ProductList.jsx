@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-
+import SkeletonLoadingForProductList from "./loading/SkeletonLoadingForProductList";
 const ProductList = () => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
@@ -32,7 +32,7 @@ const ProductList = () => {
     },[])
 
     if (loading){
-        return <div>Loading...</div>
+        return <SkeletonLoadingForProductList></SkeletonLoadingForProductList>
     }
     if (error){
         return <div>Error: {error}</div>
