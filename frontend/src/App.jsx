@@ -10,8 +10,7 @@ import SignUp from "../pages/Signup"
 import NavCategories from "../components/navbar/NavCategories"
 import HomePage from "../pages/HomePage"
 import CategorizedProductsPage from "../pages/CategorizedProductsPage"
-
-
+import Footer from "../components/Footer"
 export default function App() {
   return (
     <Router>
@@ -31,6 +30,7 @@ export default function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
       </Routes>
+      <Footer></Footer>
     </Router>
   )
 }
