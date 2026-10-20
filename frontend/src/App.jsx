@@ -13,6 +13,7 @@ import CategorizedProductsPage from "../pages/CategorizedProductsPage"
 import Footer from "../components/shared/Footer"
 // import { BrowserRouter } from "react-router-dom"
 import ScrollToTop from "../components/shared/ScrollToTop"
+import SearchedProductPage from "../pages/SearchedProductPage"
 export default function App() {
   return (
     <BrowserRouter>
@@ -24,7 +25,7 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
-
+          <Route path="/search" element={<SearchedProductPage/>}></Route>
           <Route path="/product/:id" element={<ProductDetails />}></Route>
           <Route path="/cart" element={<CartPages />}></Route>
           <Route path="/categories/:slug" element={<CategorizedProductsPage />}></Route>

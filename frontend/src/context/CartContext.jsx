@@ -4,6 +4,8 @@ import { createContext, useState, useContext, useEffect } from "react";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+    const [searchedResult, setSearchedResult] = useState([])
+
     const [isCartChecked, setIsCartChecked] = useState(false)
     const [cartItems, setCartItems] = useState(() => {
         const savedCart = localStorage.getItem('cart')
@@ -40,6 +42,8 @@ const CartProvider = ({ children }) => {
             value={{
                 cartItems,
                 setCartItems,
+                searchedResult, 
+                setSearchedResult
 
             }}
         >

@@ -8,10 +8,12 @@ import { UserContext } from "../../src/context/UserContext";
 
 import { RxTriangleDown } from "react-icons/rx";
 import NavLogo from '../../public/bazar-sodai-footer-logo.jpg'
+import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
-    console.log(showProfileMenu)
+    const {setSearchedResult} = useContext(CartContext)
+    // console.log(showProfileMenu)
     const { userName } = useContext(UserContext)
     const { cartItems } = useContext(CartContext)
     const navigate = useNavigate()
@@ -49,6 +51,23 @@ const Navbar = () => {
     })
     // console.log('uniqueCartProducts: ',uniqueCartProducts)
 
+    const savedProducts = JSON.parse(localStorage.getItem('products'))
+    // console.log('savedProducts: ',savedProducts)
+    const handleSearch = (searchedProduct)=>{
+        // console.log('search text: ',searchedProduct)
+        if (searchedProduct.length<1){
+            setSearchedResult([])
+            return
+        }
+        const filteredProducts = savedProducts.filter(product=>product.name.toLowerCase().includes(searchedProduct.toLowerCase()))
+        // console.log('filteredProducts: ',filteredProducts)
+        setSearchedResult([...filteredProducts])
+    }
+
+    
+    const handleNavigateToSearchPage = ()=>{
+        navigate('/search')
+    }
     return (
         <div className="border-b border-gray-100 ">
             <nav className="flex items-center justify-between  px-2 py-4 max-w-6xl mx-auto">
@@ -65,6 +84,20 @@ const Navbar = () => {
                             <span> বাজার-সদাই</span>
                         </div>
                     </Link>
+                </div>
+
+
+
+
+
+
+                {/* <div className="hidden sm:block"> */}
+                <div onClick={()=>navigate('/search')} className="hidden sm:block">
+                    <label className="input">
+
+                        <input onChange={(e)=>handleSearch(e.target.value)} type="search" required placeholder="সার্চ..." />
+                        <button onClick={handleNavigateToSearchPage} className="cursor-pointer transition-transform duration-200 hover:scale-150"><span><IoSearch /></span></button>
+                    </label>
                 </div>
 
 
