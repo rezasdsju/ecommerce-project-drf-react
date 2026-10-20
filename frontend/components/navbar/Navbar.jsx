@@ -35,6 +35,20 @@ const Navbar = () => {
         })
     }, [])
 
+
+
+  
+    const uniqueIds = []
+    const uniqueCartProducts = cartItems.filter(product=>{
+        if (!uniqueIds.includes(product.id)){
+            uniqueIds.push(product.id)
+            return true
+        } else {
+            return false
+        }
+    })
+    // console.log('uniqueCartProducts: ',uniqueCartProducts)
+
     return (
         <div className="border-b border-gray-100 ">
             <nav className="flex items-center justify-between  px-2 py-4 max-w-6xl mx-auto">
@@ -92,7 +106,7 @@ const Navbar = () => {
                             <IoCartOutline className="text-2xl" />
                             {cartItems.length > 0 && (
                                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse">
-                                    {cartItems.length}
+                                    {uniqueCartProducts.length}
                                 </span>
                             )}
                         </div>
