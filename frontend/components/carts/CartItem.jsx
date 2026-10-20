@@ -2,7 +2,7 @@ import { HiMiniMinusSmall } from "react-icons/hi2";
 import { HiMiniPlusSmall } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
 import { useContext } from "react";
-import { CartContext } from "../src/context/CartContext";
+import { CartContext } from "../../src/context/CartContext";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const CartItem = ({ product }) => {

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CartContext } from "../src/context/CartContext";
+import { CartContext } from "../../src/context/CartContext";
 import { TbCurrencyTaka } from "react-icons/tb";
 
 const OrderSummaryCard = ({ product }) => {

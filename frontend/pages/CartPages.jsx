@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { CartContext } from "../src/context/CartContext";
-import CartItem from "../components/CartItem";
-import OrderSummary from "../components/OrderSummary";
+import CartItem from "../components/carts/CartItem";
+import OrderSummary from "../components/carts/OrderSummary";
 import { Link } from "react-router-dom";
 
 const cartPages = () => {
