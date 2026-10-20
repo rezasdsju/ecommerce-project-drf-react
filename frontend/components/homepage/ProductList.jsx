@@ -20,6 +20,7 @@ const ProductList = () => {
             })
             .then((data)=>{
                 setProducts(data)
+                localStorage.setItem('products',JSON.stringify(data))
                 setLoading(false)
             })
             .catch((error)=>{
