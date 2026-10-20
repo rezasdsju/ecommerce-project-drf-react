@@ -107,7 +107,7 @@ def register_view(request):
     if serializer.is_valid():
         user = serializer.save()
         user_serializer = UserSerializer(user)
-        return Response({'message':"User Created Successfully", "user":UserSerializer(user).data}, status=status.HTTP_201_CREATED)
+        return Response({'message':"User Created Successfully", "user":user_serializer}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
      
