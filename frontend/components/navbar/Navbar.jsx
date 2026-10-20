@@ -91,8 +91,8 @@ const Navbar = () => {
 
                                 </> :
                                 <div className="flex items-center justify-center gap-1 min-[400px]:gap-3">
-                                    <Link to="/login" className="bg-white border border-gray-200 rounded-xl px-1 min-[400px]:px-4 py-2 text-black font-bold">সাইন ইন</Link>
-                                    <Link to="/signup" className="bg-blue-100 text-black border border-gray-100 rounded-xl px-1 min-[400px]:px-4 py-2 font-bold">সাইন আপ</Link>
+                                    <Link to="/login" className="bg-white border border-gray-200 rounded-xl px-2 min-[400px]:px-4 py-2 text-black font-bold">সাইন ইন</Link>
+                                    <Link to="/signup" className="bg-blue-100 text-black border border-gray-100 rounded-xl px-2 min-[400px]:px-4 py-2 font-bold">সাইন আপ</Link>
                                 </div>
                         }
                     </div>
