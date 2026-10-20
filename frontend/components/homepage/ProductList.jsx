@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import SkeletonLoadingForProductList from "./loading/SkeletonLoadingForProductList";
+import ProductCard from "../ProductCard";
+import SkeletonLoadingForProductList from "../loading/SkeletonLoadingForProductList";
 const ProductList = () => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
