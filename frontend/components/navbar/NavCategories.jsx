@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import Categories from "./Categories"
+import ShimmerLoading from "../loading/ShimmerLoading"
 const navCategoriesPromise = async()=>{
     const res = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/categories/`)
     const data = await res.json()
@@ -10,7 +11,7 @@ const NavCategories = () => {
     return (
         <div>
             {/* <h2>Nav Categories</h2> */}
-            <Suspense fallback='Loading Categories...'>
+            <Suspense fallback={<ShimmerLoading></ShimmerLoading>}>
                 <Categories navCategoriesPromise={navCategoriesPromise()}></Categories>
             </Suspense>
         </div>

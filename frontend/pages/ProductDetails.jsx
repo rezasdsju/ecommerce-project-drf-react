@@ -10,6 +10,7 @@ import { PiLineVerticalBold } from "react-icons/pi";
 import { CartContext } from '../src/context/CartContext';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import ShimmerLoading from '../components/loading/ShimmerLoading';
 // import { useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
@@ -41,7 +42,7 @@ const ProductDetails = () => {
     }, [id, BASE_URL]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <ShimmerLoading></ShimmerLoading>;
     }
 
     if (error) {

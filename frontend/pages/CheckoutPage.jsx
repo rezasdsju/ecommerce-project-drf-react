@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import OrderSummaryForCheckOutPage from "../components/OrderSummaryForCheckOutPage";
 import CartItemForCheckout from "../components/CartItemForCheckout";
 import { Link } from "react-router-dom";
+import ProgressBarLoading from "../components/loading/ProgressBarLoading";
 const CheckoutPage = () => {
     const [quantity, setQuantity] = useState(1)
     const { cartItems } = useContext(CartContext)
@@ -42,7 +43,7 @@ const CheckoutPage = () => {
     }, [productId, BASE_URL]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <ProgressBarLoading></ProgressBarLoading>;
     }
 
     if (error) {
@@ -56,7 +57,7 @@ const CheckoutPage = () => {
 
         <div className="my-10 mx-5">
             <div className="flex items-center gap-1 mb-5">
-                <span>হোম</span>
+                <Link to={`/`}><span>হোম</span></Link>
                 <span><IoChevronForwardSharp /></span>
                 <Link to={`/product/${product.id}`}><span>পণ্যের বিবরণ</span></Link>
          
