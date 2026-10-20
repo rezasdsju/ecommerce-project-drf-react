@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../src/context/CartContext";
-import OrderSummaryProductItemCard from "./OrderSummaryProductItemCard";
+import { CartContext } from "../../src/context/CartContext";
+import OrderSummaryProductItemCard from "../OrderSummaryProductItemCard";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { FaBorderAll } from "react-icons/fa";
 import { Link } from "react-router-dom";
