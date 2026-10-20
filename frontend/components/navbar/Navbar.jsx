@@ -7,7 +7,7 @@ import { CartContext } from "../../src/context/CartContext";
 import { UserContext } from "../../src/context/UserContext";
 
 import { RxTriangleDown } from "react-icons/rx";
-
+import NavLogo from '../../public/bazar-sodai-footer-logo.jpg'
 
 const Navbar = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
@@ -37,10 +37,10 @@ const Navbar = () => {
 
 
 
-  
+
     const uniqueIds = []
-    const uniqueCartProducts = cartItems.filter(product=>{
-        if (!uniqueIds.includes(product.id)){
+    const uniqueCartProducts = cartItems.filter(product => {
+        if (!uniqueIds.includes(product.id)) {
             uniqueIds.push(product.id)
             return true
         } else {
@@ -58,7 +58,12 @@ const Navbar = () => {
                         to="/"
                         className="text-2xl font-bold bg-linear-to-r from-green-600 via-emerald-500 to-yellow-500 bg-clip-text text-transparent"
                     >
-                        বাজার-সদাই
+                        <div className="flex items-center gap-2">
+                            <div className="bg-gray-50 border border-green-200 rounded-xl p-2 shadow-sm">
+                                <img src={NavLogo} alt="Bazar Sodai Logo" className="h-5 w-5 object-contain rounded-xl" />
+                            </div>
+                            <span> বাজার-সদাই</span>
+                        </div>
                     </Link>
                 </div>
 
