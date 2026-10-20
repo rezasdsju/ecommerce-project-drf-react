@@ -78,7 +78,7 @@ const ProductCard = ({ product }) => {
                         }
 
                     </div>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center flex-wrap gap-3'>
                         <div className='flex items-center gap-1'>
                             <div className='flex items-center text-blue-500 font-bold'>
                                 <span><FaBangladeshiTakaSign /></span>

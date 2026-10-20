@@ -61,7 +61,7 @@ const CategoryDetails = ({ category }) => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 min-[500px]:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-3 p-6">
+            <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-3 p-1 sm:p-6">
                 {
                     sortedProducts.map(product => <ProductCard key={product.id} product={product}></ProductCard>)
                 }

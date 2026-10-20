@@ -2,6 +2,28 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+
+html {
+  font-size: 100%;
+}
+
+@media (max-width: 379px) {
+  html {
+    font-size: 95%;
+  }
+}
+
+@media (max-width: 349px) {
+  html {
+    font-size: 85%;
+  }
+}
+
+@media (max-width: 329px) {
+  html {
+    font-size: 80%;
+  }
+}
 body {
   font-family: 'Noto Serif Bengali', serif;
 }
@@ -71,3 +93,6 @@ body {
         transform: translateX(350%);
     }
 }
+
+
+
