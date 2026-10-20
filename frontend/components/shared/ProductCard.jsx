@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
 
   
     const matchedProducts = cartItems.filter(item => item.id === product.id)
-    console.log('matchedProducts: ', matchedProducts)
+    
     const handleAddToCart = () => {
         setCartItems([...cartItems, product])
         const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
