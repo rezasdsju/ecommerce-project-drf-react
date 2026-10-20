@@ -10,6 +10,8 @@ const CartItem = ({ product }) => {
     const totalItems = cartItems.filter(item => item.id === product.id).length;
 
     const handleDeleteCartItems = () => {
+        const wantToDelete = window.confirm('আপনি কি এই product কার্ট থেকে সরাতে চান?')
+        if (!wantToDelete) return
         const remaining = cartItems.filter(item => item.id !== product.id);
         setCartItems(remaining);
     };
