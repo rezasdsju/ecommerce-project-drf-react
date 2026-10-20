@@ -10,9 +10,9 @@ import SignUpPage from "../pages/SignUpPage"
 import NavCategories from "../components/navbar/NavCategories"
 import HomePage from "../pages/HomePage"
 import CategorizedProductsPage from "../pages/CategorizedProductsPage"
-import Footer from "../components/Footer"
+import Footer from "../components/shared/Footer"
 // import { BrowserRouter } from "react-router-dom"
-import ScrollToTop from "../components/ScrollToTop"
+import ScrollToTop from "../components/shared/ScrollToTop"
 export default function App() {
   return (
     <BrowserRouter>
