@@ -9,10 +9,14 @@ import { UserContext } from "../../src/context/UserContext";
 import { RxTriangleDown } from "react-icons/rx";
 import NavLogo from '../../public/bazar-sodai-footer-logo.jpg'
 import { IoSearch } from "react-icons/io5";
+import { FiSearch } from "react-icons/fi";
+
+import { FiUser } from "react-icons/fi";
 
 const Navbar = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
-    const {textInSearchBox,setTextInSearchBox} = useContext(CartContext)
+    const [clickedSearchIcon, setClickedSearchIcon] = useState(false)
+    const { setTextInSearchBox } = useContext(CartContext)
     const { setSearchedResult } = useContext(CartContext)
     // console.log('textInSearchBox: ',textInSearchBox)
     const { userName } = useContext(UserContext)
@@ -95,14 +99,13 @@ const Navbar = () => {
 
 
                 {/* <div className="hidden sm:block"> */}
-                <div className="flex items-center justify-center">
-                    <div onClick={() => navigate('/search')} className="hidden sm:block">
-                        <label className="input">
 
-                            <input onChange={(e) => handleSearch(e.target.value)} type="search" required placeholder="সার্চ..." />
-                            <button onClick={handleNavigateToSearchPage} className="cursor-pointer transition-transform duration-200 hover:scale-150"><span><IoSearch /></span></button>
-                        </label>
-                    </div>
+                <div onClick={() => navigate('/search')} className="hidden sm:block">
+                    <label className="input">
+
+                        <input onChange={(e) => handleSearch(e.target.value)} type="search" required placeholder="সার্চ..." />
+                        <button onClick={handleNavigateToSearchPage} className="cursor-pointer transition-transform duration-200 hover:scale-150"><span><IoSearch /></span></button>
+                    </label>
                 </div>
 
 
@@ -133,12 +136,47 @@ const Navbar = () => {
 
 
                                 </> :
-                                <div className="flex items-center justify-center gap-1 min-[400px]:gap-3">
-                                    <Link to="/login" className="bg-white border border-gray-200 rounded-xl px-2 min-[400px]:px-4 py-2 text-black font-bold">সাইন ইন</Link>
-                                    <Link to="/signup" className="bg-blue-100 text-black border border-gray-100 rounded-xl px-2 min-[400px]:px-4 py-2 font-bold">সাইন আপ</Link>
+
+                                <div>
+                                    <div className="flex items-center justify-center gap-1 min-[400px]:gap-3">
+                                        <Link to="/login" className="hidden sm:flex bg-white border border-gray-200 rounded-xl px-2 min-[400px]:px-4 py-2 text-black font-bold">সাইন ইন</Link>
+                                        <Link to="/signup" className="hidden sm:flex bg-blue-100 text-black border border-gray-100 rounded-xl px-2 min-[400px]:px-4 py-2 font-bold">সাইন আপ</Link>
+                                    </div>
+                                    <div ref={profileMenuRef} onClick={() => setShowProfileMenu(!showProfileMenu)} className="flex items-center justify-center gap-1 min-[400px]:gap-3">
+
+                                        <Link className="sm:hidden text-2xl"><span className="cursor-pointer"><FiUser /></span></Link>
+                                        <div>
+                                            {
+                                                showProfileMenu &&
+                                                <div className="absolute top-10 right-4  border border-green-200 z-9999  bg-gray-100  rounded-2xl px-5 py-5">
+                                                    <div className="flex flex-col gap-2">
+
+                                                        <Link to="/login" className="   text-black font-bold cursor-pointer hover:text-green-500">সাইন ইন</Link>
+                                                        <Link to="/signup" onClick={() => { setShowProfileMenu(!showProfileMenu) }} className="  font-bold cursor-pointer hover:text-green-500">সাইন আপ</Link>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                         }
                     </div>
+
+
+
+
+
+
+                    <div className="flex sm:hidden">
+                        <button onClick={() => { handleNavigateToSearchPage(); setClickedSearchIcon(!clickedSearchIcon) }} className="cursor-pointer transition-transform duration-200 hover:scale-150 px-2"><span><FiSearch /></span></button>
+
+                    </div>
+
+
+
+
+
+
 
                     <Link
                         to="/cart"
@@ -157,6 +195,32 @@ const Navbar = () => {
                     </Link>
                 </div>
             </nav>
+
+
+
+
+
+
+            {
+                clickedSearchIcon &&
+                <div className="flex items-center justify-center sm:hidden">
+                    <div onClick={() => navigate('/search')} >
+                        <label className="input">
+
+                            <input onChange={(e) => handleSearch(e.target.value)} type="search" required placeholder="সার্চ..." />
+                            <button onClick={handleNavigateToSearchPage} className="cursor-pointer transition-transform duration-200 hover:scale-150"><span><IoSearch /></span></button>
+                        </label>
+                    </div>
+                </div>
+            }
+
+
+
+
+
+
+
+
         </div>
     );
 };
