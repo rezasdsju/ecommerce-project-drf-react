@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Categoryserializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['id','name','slug']
         
 class ProductSerializer(serializers.ModelSerializer):
     category = Categoryserializer(read_only=True)

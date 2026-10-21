@@ -48,6 +48,8 @@ def get_categories(request):
     return Response(serializer.data)
 
 
+
+
 @api_view(['GET'])
 def get_category(request, slug):
     try: 
@@ -66,6 +68,22 @@ def get_category(request, slug):
         })
     except Category.DoesNotExist:
         return Response({'error':'Category Not Found'}, status=404)
+
+
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def create_categories(request):
+    serializer = Categoryserializer(data = request.data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    
+    return Response(serializer.errors,status=400)
+
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
