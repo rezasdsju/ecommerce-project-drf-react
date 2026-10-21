@@ -1,6 +1,15 @@
-# Bazar-Sodai — Online Grocery Shop
+# Bazar-Sodai — Grocery E-Commerce Platform
 
-Bazar-Sodai is a practice-based full-stack e-commerce project that simulates the core functionality of an online grocery store. The project was built to gain hands-on experience with modern frontend development, REST API integration, authentication, cart management, product browsing, checkout workflows, and backend API development.
+Bazar-Sodai is a practice-based full-stack grocery e-commerce project built to simulate the core functionality of an online grocery store.
+
+The project focuses on implementing essential e-commerce features such as product browsing, category-based navigation, product search, price filtering, cart management, order placement, authentication, and API-driven product and category management.
+
+> **Project Type:** Practice Project  
+> **Architecture:** Full-Stack Application  
+> **Frontend:** React  
+> **Backend:** Django REST Framework
+
+---
 
 ## Live Demo
 
@@ -12,24 +21,43 @@ https://bazar-sodai-api.satbeta.top/api/
 
 ---
 
-## Project Overview
+## API Endpoints
 
-Bazar-Sodai is an online grocery shopping application built with **React** on the frontend and **Django REST Framework** on the backend.
+### Products
 
-The application provides essential e-commerce functionality such as:
+**All Products**
+```text
+GET /products/
+```
 
-- Product browsing
-- Product search
-- Price filtering
-- Category-based browsing
-- Product details
-- Shopping cart management
-- Checkout and order placement
-- User registration and login
-- Product and category APIs
-- Local Storage-based cart persistence
+https://bazar-sodai-api.satbeta.top/api/products/
 
-The primary goal of this project is to replicate the basic workflow of an online grocery store while gaining practical experience in full-stack web application development.
+**Single Product**
+```text
+GET /products/{id}/
+```
+
+Example:
+
+https://bazar-sodai-api.satbeta.top/api/products/5
+
+### Categories
+
+**All Categories**
+```text
+GET /categories/
+```
+
+https://bazar-sodai-api.satbeta.top/api/categories/
+
+**Single Category**
+```text
+GET /categories/{slug}/
+```
+
+Example:
+
+https://bazar-sodai-api.satbeta.top/api/categories/egg
 
 ---
 
@@ -37,22 +65,26 @@ The primary goal of this project is to replicate the basic workflow of an online
 
 ### Product Management
 
-- Browse available grocery products.
-- View detailed information for individual products.
-- Search products by name.
-- Filter products based on price.
-- Browse products by category.
-- Fetch product data from the REST API.
+- Browse available grocery products
+- View detailed product information
+- Search products by name
+- Filter products by price
+- Browse products by category
+- Fetch product data through REST APIs
 
 ### Shopping Cart
 
-- Add products to the shopping cart.
-- Remove products from the cart.
-- Persist cart data using browser Local Storage.
-- Maintain cart data after page refresh.
-- Automatically expire cart data after 24 hours.
+- Add products to the cart
+- Remove products from the cart
+- Persist cart data using Local Storage
+- Maintain cart data after page refresh
+- Automatically expire stored cart data after 24 hours
 
-### Checkout & Order Placement
+### Category-Based Browsing
+
+Users can browse products according to their categories through the navigation menu.
+
+### Order Placement
 
 Users can place an order by providing:
 
@@ -60,54 +92,48 @@ Users can place an order by providing:
 - Address
 - Phone Number
 
-The checkout process provides the following payment options:
+Available payment options:
 
 - Cash on Delivery
 - bKash
 - Nagad
 
-A payment method must be selected before placing an order.
-
-### Authentication
-
-The project includes user registration and login functionality using Django's authentication system.
-
-After login, the generated:
-
-- Access Token
-- Refresh Token
-
-are stored in Local Storage.
-
-Authentication utility functions are implemented in:
-
-```text
-utils/auth.js
-```
-
-Available utility functions include:
-
-| Function | Description |
-|---|---|
-| `saveToken()` | Stores the access token and refresh token in Local Storage |
-| `getAccessToken()` | Retrieves the stored access token |
-| `getRefreshToken()` | Retrieves the stored refresh token |
-| `clearTokens()` | Removes authentication tokens from Local Storage |
+Users must select a payment option before placing an order.
 
 ---
 
-## Authentication Limitations
+## Authentication
 
-Authentication has been implemented, but it is not currently integrated with protected application workflows.
+The project uses Django's authentication system to implement user registration and login functionality.
 
-Current limitations:
+After login, the generated Access Token and Refresh Token are stored in the browser's Local Storage.
 
-- No protected pages are connected to the authentication system.
-- Order placement does not require authentication.
-- Users can place an order without logging in or signing up.
-- Authentication is not currently enforced during checkout.
+Authentication-related utility functions are implemented in:
 
-Protected pages and authentication-based order placement can be integrated in future development.
+```text
+frontend/src/utils/auth.js
+```
+
+### Authentication Utilities
+
+| Function | Description |
+|---|---|
+| `saveToken()` | Stores Access Token and Refresh Token in Local Storage |
+| `getAccessToken()` | Retrieves the stored Access Token |
+| `getRefreshToken()` | Retrieves the stored Refresh Token |
+| `clearTokens()` | Removes Access Token and Refresh Token from Local Storage |
+
+### Current Authentication Limitations
+
+Authentication is currently implemented but is not fully integrated with protected application flows.
+
+- Login and Signup are not connected to protected pages.
+- Order placement does not currently require authentication.
+- Users can place orders without logging in or signing up.
+- Protected pages have not yet been implemented.
+- Authentication has not yet been integrated with the order placement process.
+
+Future development may connect authentication with protected pages and order placement.
 
 ---
 
@@ -115,132 +141,91 @@ Protected pages and authentication-based order placement can be integrated in fu
 
 ### Cart Persistence
 
-Cart information is stored in Local Storage so that cart data remains available after a page refresh.
+Cart information is stored in Local Storage so that the cart remains available after a page refresh.
 
-A **24-hour expiration mechanism** is implemented for the cart.
+A **24-hour expiration period** is implemented for cart data.
 
-When the expiration period is reached:
+The following Local Storage entries are used:
 
 ```text
 cart
 createdAt
 ```
 
-are removed from Local Storage and the cart is cleared.
+When the stored cart exceeds the expiration period, the cart data and its creation timestamp are removed and the cart is cleared.
 
 ### Product Data Storage
 
 Product data is fetched from the API on the homepage and stored in Local Storage.
 
-### Local Storage-based Product Search
+### Local Storage-Based Product Search
 
-Product search uses the product data stored in Local Storage.
+Product searches use the product data stored in Local Storage.
 
 ### Product Data Updates
 
-Whenever product data is fetched from the API on the homepage, the corresponding product data stored in Local Storage is also updated.
+Whenever the homepage fetches updated product data from the API, the Local Storage product data is also updated.
 
-This allows the locally stored product data to remain synchronized with the latest product data fetched from the API.
+This allows the locally stored product information to stay synchronized with the latest data fetched by the homepage.
 
 ---
 
 ## Product & Category API Access
 
-Session authentication is used for product and category creation APIs.
+Product and category creation APIs use **Session Authentication**.
 
 ### Admin Access
 
-Authenticated administrators can:
+An authenticated admin can:
 
-- Create new products through the Product Create API.
-- Create new categories through the Category Create API.
+- Create new products through the Product Create API
+- Create new categories through the Category Create API
 
 ### Non-Admin Access
 
-Non-admin users do not have access to the product and category creation APIs.
+Non-admin users do not have access to these two creation APIs.
 
 ---
 
-## Payment System
+## Order & Payment System
 
-The checkout page currently provides three payment options:
+During checkout, users provide the required delivery information:
 
-| Payment Method | Status |
-|---|---|
-| Cash on Delivery | Available |
-| bKash | Option available, no gateway integration |
-| Nagad | Option available, no gateway integration |
+- Name
+- Address
+- Phone Number
+
+The checkout system provides three payment options:
+
+1. Cash on Delivery
+2. bKash
+3. Nagad
+
+A payment option must be selected before placing an order.
 
 ### Payment Limitations
 
-There is currently no actual payment gateway integration for:
+The current project does not include actual online payment gateway integration.
 
-- bKash
-- Nagad
-
-Therefore, selecting bKash or Nagad does not process an online payment at this stage.
+- bKash payment gateway integration has not been implemented.
+- Nagad payment gateway integration has not been implemented.
+- Selecting bKash or Nagad does not currently process an online payment.
 
 ---
 
 ## Product Reviews
 
-Product review submission is not currently implemented.
+Product reviews are currently limited.
 
-At present, the product `reviews` field is managed from the Django Admin Panel and represents the review count.
-
-Users cannot currently submit product reviews through the application.
-
----
-
-# API Documentation
-
-## API Base URL
-
-https://bazar-sodai-api.satbeta.top/api/
+- There is no user-facing functionality for submitting product reviews.
+- The product `reviews` field is currently managed from the Django Admin Panel.
+- The review count can be specified from the Admin Panel.
 
 ---
 
-## Products API
+## Technology Stack
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/products/` | Retrieve all products |
-| `GET` | `/products/{id}/` | Retrieve a specific product |
-
-### Examples
-
-**All Products**
-
-https://bazar-sodai-api.satbeta.top/api/products/
-
-**Product with ID 5**
-
-https://bazar-sodai-api.satbeta.top/api/products/5
-
----
-
-## Categories API
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/categories/` | Retrieve all categories |
-| `GET` | `/categories/{slug}/` | Retrieve a specific category |
-
-### Examples
-
-**All Categories**
-
-https://bazar-sodai-api.satbeta.top/api/categories/
-
-**Egg Category**
-
-https://bazar-sodai-api.satbeta.top/api/categories/egg
-
----
-
-# Technology Stack
-
-## Frontend
+### Frontend
 
 - React
 - JavaScript
@@ -249,21 +234,30 @@ https://bazar-sodai-api.satbeta.top/api/categories/egg
 - DaisyUI
 - React Toastify
 - React Icons
-- Vite
 
-## Backend
+### Backend
 
 - Python
 - Django
 - Django REST Framework
 
+### Data & Storage
+
+- REST API
+- Browser Local Storage
+- Database managed through Django
+
 ---
 
-# Project Structure
+## Project Structure
+
+The project is organized into two major parts:
+
+- `backend/` — Django and Django REST Framework backend
+- `frontend/` — React frontend application
 
 ```text
 ecommerce-project-drf-react/
-│
 ├── README.md
 ├── BANGLA_DESCRIPTION.md
 │
@@ -290,7 +284,6 @@ ecommerce-project-drf-react/
 │   │
 │   └── media/
 │       └── products/
-│           └── # Product image uploads
 │
 └── frontend/
     ├── package.json
@@ -301,49 +294,44 @@ ecommerce-project-drf-react/
     │
     ├── public/
     │
-    └── src/
-        ├── App.jsx
-        ├── App.css
-        ├── main.jsx
-        ├── index.css
-        ├── assets/
-        │
-        ├── context/
-        │   ├── CartContext.jsx
-        │   └── UserContext.jsx
-        │
-        ├── utils/
-        │   └── auth.js
-        │
-        ├── pages/
-        │   ├── HomePage.jsx
-        │   ├── ProductDetails.jsx
-        │   ├── CategorizedProductsPage.jsx
-        │   ├── SearchedProductPage.jsx
-        │   ├── CartPages.jsx
-        │   ├── CheckoutPage.jsx
-        │   ├── LoginPage.jsx
-        │   └── SignUpPage.jsx
-        │
-        └── components/
-            ├── CategoryDetails.jsx
-            ├── carts/
-            ├── checkout/
-            ├── homepage/
-            ├── loading/
-            ├── navbar/
-            └── shared/
+    ├── src/
+    │   ├── App.jsx
+    │   ├── App.css
+    │   ├── main.jsx
+    │   ├── index.css
+    │   ├── assets/
+    │   ├── context/
+    │   └── utils/
+    │
+    ├── pages/
+    │   ├── HomePage.jsx
+    │   ├── ProductDetails.jsx
+    │   ├── CategorizedProductsPage.jsx
+    │   ├── SearchedProductPage.jsx
+    │   ├── CartPages.jsx
+    │   ├── CheckoutPage.jsx
+    │   ├── LoginPage.jsx
+    │   └── SignUpPage.jsx
+    │
+    └── components/
+        ├── CategoryDetails.jsx
+        ├── carts/
+        ├── checkout/
+        ├── homepage/
+        ├── loading/
+        ├── navbar/
+        └── shared/
 ```
 
 ---
 
-# Project Structure Overview
-
-## Backend
+## Backend Structure
 
 The backend is built with Django and Django REST Framework.
 
-| File/Directory | Purpose |
+### Core Files
+
+| File / Directory | Purpose |
 |---|---|
 | `manage.py` | Django project management |
 | `backend/settings.py` | Project configuration and settings |
@@ -353,13 +341,16 @@ The backend is built with Django and Django REST Framework.
 | `store/views.py` | API views and business logic |
 | `store/urls.py` | Store application URL configuration |
 | `store/admin.py` | Django Admin configuration |
+| `store/tests.py` | Backend tests |
 | `store/migrations/` | Database migration files |
 | `requirements.txt` | Python dependencies |
 | `media/products/` | Uploaded product images |
 
-## Frontend
+---
 
-The frontend is developed using React and contains the application's pages, reusable components, contexts, and utilities.
+## Frontend Structure
+
+The frontend is developed with React and organized around pages, reusable components, contexts, and utility functions.
 
 ### Pages
 
@@ -375,6 +366,8 @@ SignUpPage.jsx
 ```
 
 ### Components
+
+The reusable components are organized into feature-specific directories:
 
 ```text
 components/
@@ -405,38 +398,100 @@ utils/
 └── auth.js
 ```
 
-`auth.js` contains the utility functions responsible for storing, retrieving, and clearing authentication tokens.
+`auth.js` contains the authentication token management utilities used for storing, retrieving, and clearing Access and Refresh Tokens.
 
 ---
 
-# Current Limitations
+## Media Files
 
-The project is currently a practice project and has several limitations.
+Product images uploaded through the backend are stored in:
+
+```text
+backend/media/products/
+```
+
+---
+
+## API Reference
+
+### Base URL
+
+```text
+https://bazar-sodai-api.satbeta.top/api/
+```
+
+### Products API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/products/` | Retrieve all products |
+| `GET` | `/products/{id}/` | Retrieve a specific product |
+
+### Categories API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/categories/` | Retrieve all categories |
+| `GET` | `/categories/{slug}/` | Retrieve a specific category |
+
+---
+
+## Environment Variables
+
+The project contains environment configuration files for both the backend and frontend:
+
+```text
+backend/.env
+frontend/.env
+```
+
+Environment-specific configuration should be kept inside these files rather than hard-coded into the application.
+
+---
+
+## Project Limitations
+
+Bazar-Sodai is a practice project and currently has several limitations.
 
 ### Authentication
 
-- Protected pages have not yet been implemented.
-- Order placement is not restricted to authenticated users.
-- Authentication is not currently connected to the checkout workflow.
+- Authentication is not connected to protected pages.
+- Order placement does not require authentication.
+- Protected routes have not been implemented.
 
 ### Payment
 
-- No bKash payment gateway integration.
-- No Nagad payment gateway integration.
-- bKash and Nagad are currently available only as payment options.
+- No bKash payment gateway is integrated.
+- No Nagad payment gateway is integrated.
+- bKash and Nagad selections do not process real online payments.
 
 ### Product Reviews
 
-- Users cannot submit product reviews.
-- Review count is currently managed through the Django Admin Panel.
+- Users cannot currently submit product reviews.
+- Review counts are managed through the Django Admin Panel.
 
-These areas can be extended in future versions of the project.
+These limitations can be addressed in future iterations of the project.
 
 ---
 
-# Project Purpose
+## Future Improvements
 
-Bazar-Sodai was developed as a hands-on practice project to understand and implement the fundamental concepts required for a full-stack e-commerce application.
+Potential future improvements include:
+
+- Implement protected routes.
+- Require authentication for order placement.
+- Integrate authentication with the checkout process.
+- Add real bKash payment gateway integration.
+- Add real Nagad payment gateway integration.
+- Implement user-submitted product reviews.
+- Expand the review and rating system.
+- Improve overall e-commerce functionality as the project evolves.
+
+---
+
+## Project Purpose
+
+Bazar-Sodai was developed as a hands-on practice project to gain practical experience in building a full-stack e-commerce application.
 
 The project provides practical experience with:
 
@@ -444,26 +499,25 @@ The project provides practical experience with:
 - REST API integration
 - Django REST Framework
 - Authentication and token management
-- Local Storage
+- React Context API
+- Local Storage persistence
 - Cart state management
 - Product and category management
-- Search and filtering
-- Checkout workflows
-- API-based data management
-- Admin-controlled content management
+- Checkout and order workflows
+- Frontend and backend project organization
 
 ---
 
-# Conclusion
+## Summary
 
-Bazar-Sodai is a full-stack practice e-commerce project focused on implementing the core workflow of an online grocery store.
+Bazar-Sodai is a full-stack practice project that demonstrates the core workflow of an online grocery e-commerce platform.
 
-The application currently supports product browsing, product search, price filtering, category-based browsing, product details, cart management, checkout, order placement, and user authentication.
+It includes product browsing, category-based navigation, product search, price filtering, cart management, checkout, order placement, authentication, and REST API integration.
 
-While features such as protected routes, authenticated checkout, user-submitted product reviews, and real payment gateway integration are not currently implemented, the project provides a solid foundation for further development of a complete grocery e-commerce platform.
+While several advanced features such as protected routes, user-generated reviews, and real online payment gateway integration are not yet implemented, the project provides a practical foundation for developing and extending a complete grocery e-commerce platform.
 
 ---
 
 ## License
 
-This project is developed as a practice project for learning and experimentation.
+This project is developed for practice and learning purposes.

@@ -3,12 +3,8 @@
 
 Professional readme likhba
 Readme github এ add করবো তাই profession ও english এ হতে হবে
+ekdom professional README likhba
 """""""""""""""""
-# Bazar-Sodai — অনলাইন গ্রোসারি শপ
-
-**Live Link:** https://bazar-sodai-frontend-ten.vercel.app/
-
-**API Base URL:** https://bazar-sodai-api.satbeta.top/api/
 
 ## ১. প্রজেক্ট পরিচিতি (Project Overview)
 
@@ -269,3 +265,19 @@ ecommerce-project-drf-react/
         ├── loading/
         ├── navbar/
         └── shared/
+
+
+
+
+
+
+# Bazar-Sodai — অনলাইন গ্রোসারি শপ
+
+**Live Link:** https://bazar-sodai-frontend-ten.vercel.app/
+
+**API Base URL:** https://bazar-sodai-api.satbeta.top/api/
+
+producst api
+https://bazar-sodai-api.satbeta.top/api/products/
+categories api
+https://bazar-sodai-api.satbeta.top/api/categories/
