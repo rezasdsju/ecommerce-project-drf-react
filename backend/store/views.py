@@ -241,10 +241,12 @@ def register_view(request):
 
 
 from django.db import transaction
+from rest_framework.throttling import AnonRateThrottle
+from rest_framework.decorators import throttle_classes
 
 @api_view(['POST'])
 @transaction.atomic
-# @permission_classes([IsAuthenticated])
+@throttle_classes([AnonRateThrottle])
 def order_create(request):
     try:
         data = request.data

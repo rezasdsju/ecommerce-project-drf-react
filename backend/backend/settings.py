@@ -159,7 +159,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "https://bazar-sodai-frontend-ten.vercel.app",
+]
 
 
 MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
@@ -176,7 +182,10 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '3/hour',
+    },
     
 }
 
