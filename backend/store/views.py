@@ -15,22 +15,29 @@ def user_profile(request):
     username = request.user.username
     return Response({'username':username})
 
+
+
 @api_view(['GET'])
 def get_products(request):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
+
+
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def create_products(request):
-    # print(request.data)
     serializer = ProductSerializer(data = request.data, many=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
     
     return Response(serializer.errors,status=400)
+
+
+
+
 @api_view(['GET'])
 def get_product(request, pk):
     try: 
@@ -60,7 +67,6 @@ def get_category(request, slug):
             many=True,
             context = {'request':request}
         )
-        # serializer = Categoryserializer(category, context={'request': request})
         return Response({
             'category':category.name,
             'slug':category.slug,
@@ -148,96 +154,6 @@ def register_view(request):
     
      
         
-# @api_view(['POST'])
-# # @permission_classes([IsAuthenticated])
-# def order_create(request):
-    try:
-        data = request.data 
-        customer_name = data.get('customer_name','').strip()
-        address = data.get('address','').strip()
-        phone = data.get('phone','').strip()
-        payment_method = data.get('paymentMethod','cod')
-        product_id = data.get('product_id','')
-        product_quantity = data.get('product_quantity')
-        
-        if not customer_name or not address or not phone:
-            return Response(
-                {
-                    'error':'Name, address and phone are required',
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if not phone.isdigit() or len(phone)<10:
-            return Response(
-                {'error':'Invalid Phone Number'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        try:
-            product_id=int(product_id)
-            match = re.search(r'\d+', str(product_quantity))
-            if not match:
-                return Response(
-                    {'error': 'Invalid product quantity'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            product_quantity = int(match.group())
-            if product_id<1 or product_quantity<1:
-                raise ValueError
-        except (TypeError,ValueError):
-            return Response(
-                {'error':'Valid product id and quantity are required'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-            
-        try:
-            product = Product.objects.get(id=product_id)
-        except Product.DoesNotExist:
-            return Response(
-                {'error':'Product Not Found'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if product.current_price is None:
-            return Response(
-                {'error':'Product Price is unavailable'},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        total_amount = product.current_price*product_quantity
-        
-        order = Order.objects.create(
-            customer_name=customer_name,
-            address=address,
-            phone=phone,
-            payment_method=payment_method,
-            product_name=product.name,
-            product_quantity=f'{product_quantity} {product.unit}',
-            total_amount=total_amount
-        )
-        return Response(
-            {
-                'message':'Order Created Successfully',
-                'order':{
-                    'id':order.id,
-                    'customer_name':order.customer_name,
-                    'product_name':order.product_name,
-                    'product_quantity':order.product_quantity,
-                    'total_amount':str(order.total_amount),
-                    'payment_method':order.payment_method
-                }
-            },
-            status=status.HTTP_201_CREATED
-        )
-    except Exception as e:
-        return Response({'error':str(e)},status=500)
-    
-
-
-
-
-
-
-
-
-
 
 
 from django.db import transaction
@@ -277,7 +193,7 @@ def order_create(request):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # ordered_products_info = []
+      
         total_amount = 0
         number_of_products = 0
         products_to_save = []
@@ -324,15 +240,8 @@ def order_create(request):
 
             total_amount += total_amount_for_this_product
 
-            # dictionary_of_this_item = {
-            #     "product_name": product_name,
-            #     "product_quantity": f"{product_quantity}{product_unit}",
-            #     "total_price": f"{total_amount_for_this_product} টাকা"
-            # }
-
 
             number_of_products += product_quantity
-            # ordered_products_info.append(dictionary_of_this_item)
 
         order = Order.objects.create(
             customer_name=customer_name,
@@ -340,7 +249,6 @@ def order_create(request):
             phone=phone,
             payment_method=payment_method,
             number_of_products=number_of_products,
-            # ordered_products_info=ordered_products_info,
             total_amount=total_amount
         )
         for item in products_to_save:
