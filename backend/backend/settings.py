@@ -15,7 +15,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from datetime import timedelta
-from decouple import config
+from decouple import config,  Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -163,9 +163,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOWED_ORIGINS = [
-    "https://bazar-sodai-frontend-ten.vercel.app",
-]
+
+
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    cast=Csv()
+)
 
 
 MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
