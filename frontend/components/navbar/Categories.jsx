@@ -11,7 +11,7 @@ const Categories = ({ navCategoriesPromise }) => {
     const visibleCategories = isExpanded ? categories : categories.slice(0, 4)
 
     return (
-        <div className="px-2 sm:px-5 py-3 border-b border-gray-100 sticky top-0 z-50">
+        <div className=" px-2 sm:px-5 py-3 border-b border-gray-100 ">
 
 
                     <div className="flex items-center gap-5 justify-center">
