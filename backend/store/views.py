@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from django.contrib.auth.models import User
 
-from .models import Order, Product, Category, Cart, CartItem,OrderedProductInfo
-from .serializers import ProductSerializer, Categoryserializer, CartItemSerializer, CartSerializer, RegisterSerializer, UserSerializer
+from .models import Order, Product, Category, OrderedProductInfo
+from .serializers import ProductSerializer, Categoryserializer, RegisterSerializer, UserSerializer
 import re
 
 
@@ -91,57 +91,6 @@ def create_categories(request):
 
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_cart(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    serializer = CartSerializer(cart)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def add_to_cart(request):
-    product_id = request.data.get('product_id')
-    product = Product.objects.get(id=product_id)
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    if not created:
-        item.quantity+=1
-        item.save()
-    return Response({'message':'Product added to Cart', 'cart':CartSerializer(cart).data})
-
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def remove_from_cart(request):
-    item_id = request.data.get('item_id')
-    CartItem.objects.filter(id=item_id).delete()
-    return Response({'message':'Item removed from cart'})
-
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def update_cart_quantity(request):
-    item_id = request.data.get('item_id')
-    quantity = request.data.get('quantity')
-    
-    if not item_id or quantity is None:
-        return Response({'error':'Item ID and quantity is required'},status=404)
-    try:
-        item = CartItem.objects.get(id=item_id,cart__user=request.user)
-        if int(quantity)<1 :
-            item.delete()
-            return Response({'error':'Quantity must be at least 1'}, status=400)
-        item.quantity = quantity
-        item.save()
-        serializer = CartItemSerializer(item)
-        return Response(serializer.data)
-    except CartItem.DoesNotExist:
-        return Response({'error':'Cart Item Not Found'},status=400)
-       
-       
-       
-
     
 @api_view(['POST'])
 def register_view(request):
@@ -153,8 +102,6 @@ def register_view(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
      
-        
-
 
 from django.db import transaction
 from rest_framework.throttling import AnonRateThrottle

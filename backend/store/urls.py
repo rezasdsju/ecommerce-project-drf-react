@@ -11,10 +11,6 @@ urlpatterns = [
     path('products/<int:pk>/',views.get_product),
     path('categories/', views.get_categories),
     path('categories/create/',views.create_categories),
-    path('categories/<slug:slug>/', views.get_category),
-    path('cart/',views.get_cart),
-    path('cart/add/',views.add_to_cart),
-    path('cart/remove/',views.remove_from_cart),   
-    path('cart/update/', views.update_cart_quantity),                      
+    path('categories/<slug:slug>/', views.get_category),                   
     path('orders/create/', views.order_create),
 ]
