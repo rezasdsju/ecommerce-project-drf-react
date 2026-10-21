@@ -9,6 +9,7 @@ import { IoChevronForward } from "react-icons/io5";
 
 const SearchedProductPage = () => {
     const { searchedResult } = useContext(CartContext)
+    const { textInSearchBox } = useContext(CartContext)
 
     const [filter, setFilter] = useState('default')
 
@@ -69,9 +70,19 @@ const SearchedProductPage = () => {
                                 sortedProducts.map(product => <ProductCard key={product.id} product={product}></ProductCard>)
                             }
                         </div> :
-                        <div className="flex items-center justify-center my-20 text-2xl text-red-600">
-                            কোন পণ্য পাওয়া যায় নি
+
+                        <div>
+                            {
+                                (!textInSearchBox || textInSearchBox.length < 1) ?
+                                    <div className="flex items-center justify-center my-20 text-2xl ">
+                                        কোন পণ্য সার্চ করা হয় নি
+                                    </div> :
+                                    <div className="flex items-center justify-center my-20 text-2xl text-red-600">
+                                        কোন পণ্য পাওয়া যায় নি
+                                    </div>
+                            }
                         </div>
+
 
                 }
             </div>

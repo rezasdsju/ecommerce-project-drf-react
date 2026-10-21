@@ -5,6 +5,7 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
     const [searchedResult, setSearchedResult] = useState([])
+    const [textInSearchBox, setTextInSearchBox] = useState(null)
 
     const [isCartChecked, setIsCartChecked] = useState(false)
     const [cartItems, setCartItems] = useState(() => {
@@ -43,7 +44,9 @@ const CartProvider = ({ children }) => {
                 cartItems,
                 setCartItems,
                 searchedResult, 
-                setSearchedResult
+                setSearchedResult,
+                textInSearchBox, 
+                setTextInSearchBox
 
             }}
         >

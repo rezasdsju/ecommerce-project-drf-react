@@ -12,8 +12,9 @@ import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
-    const {setSearchedResult} = useContext(CartContext)
-    // console.log(showProfileMenu)
+    const {textInSearchBox,setTextInSearchBox} = useContext(CartContext)
+    const { setSearchedResult } = useContext(CartContext)
+    console.log('textInSearchBox: ',textInSearchBox)
     const { userName } = useContext(UserContext)
     const { cartItems } = useContext(CartContext)
     const navigate = useNavigate()
@@ -53,19 +54,21 @@ const Navbar = () => {
 
     const savedProducts = JSON.parse(localStorage.getItem('products'))
     // console.log('savedProducts: ',savedProducts)
-    const handleSearch = (searchedProduct)=>{
+    const handleSearch = (searchedProduct) => {
         // console.log('search text: ',searchedProduct)
-        if (searchedProduct.length<1){
+        if (searchedProduct.length < 1) {
             setSearchedResult([])
+            setTextInSearchBox(searchedProduct)
             return
         }
-        const filteredProducts = savedProducts.filter(product=>product.name.toLowerCase().includes(searchedProduct.toLowerCase()))
+        const filteredProducts = savedProducts.filter(product => product.name.toLowerCase().includes(searchedProduct.toLowerCase()))
         // console.log('filteredProducts: ',filteredProducts)
         setSearchedResult([...filteredProducts])
+        setTextInSearchBox(searchedProduct)
     }
 
-    
-    const handleNavigateToSearchPage = ()=>{
+
+    const handleNavigateToSearchPage = () => {
         navigate('/search')
     }
     return (
@@ -92,12 +95,14 @@ const Navbar = () => {
 
 
                 {/* <div className="hidden sm:block"> */}
-                <div onClick={()=>navigate('/search')} className="hidden sm:block">
-                    <label className="input">
+                <div className="flex items-center justify-center">
+                    <div onClick={() => navigate('/search')} className="hidden sm:block">
+                        <label className="input">
 
-                        <input onChange={(e)=>handleSearch(e.target.value)} type="search" required placeholder="সার্চ..." />
-                        <button onClick={handleNavigateToSearchPage} className="cursor-pointer transition-transform duration-200 hover:scale-150"><span><IoSearch /></span></button>
-                    </label>
+                            <input onChange={(e) => handleSearch(e.target.value)} type="search" required placeholder="সার্চ..." />
+                            <button onClick={handleNavigateToSearchPage} className="cursor-pointer transition-transform duration-200 hover:scale-150"><span><IoSearch /></span></button>
+                        </label>
+                    </div>
                 </div>
 
 
