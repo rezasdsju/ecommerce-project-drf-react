@@ -11,24 +11,34 @@ import { CiCirclePlus } from "react-icons/ci";
 
 const ProductCard = ({ product }) => {
     const { cartItems, setCartItems } = useContext(CartContext)
-    
 
-  
+
+
     const matchedProducts = cartItems.filter(item => item.id === product.id)
-    
+
     const handleAddToCart = () => {
         setCartItems([...cartItems, product])
         const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
-        // toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
         toast.success(`কার্টে অ্যাড করা হয়েছে`)
-    
+
     }
-    const handleDeleteFromCart = ()=>{
-        const firstIndex = cartItems.findIndex(item=>item.id===product.id)
-        const remaining = cartItems.filter((_,index)=>index!==firstIndex)
+    const handleDeleteFromCart = () => {
+        const firstIndex = cartItems.findIndex(item => item.id === product.id)
+        const remaining = cartItems.filter((_, index) => index !== firstIndex)
         setCartItems(remaining)
         toast.info(`কার্ট থেকে সরানো হয়েছে`)
     }
+
+
+
+    const rating = Number(product.rating)
+    const fullStars = Math.floor(rating)
+   
+    const fraction = Number((rating - fullStars).toFixed(2));
+    // console.log("fraction:", fraction);
+    const percentage = fraction * 100
+    // console.log('percentage: ', percentage)
+
     return (
 
         <div className='border border-gray-100 px-2 py-2 rounded-2xl  space-y-4 '>
@@ -58,16 +68,29 @@ const ProductCard = ({ product }) => {
                 <div className='space-y-2'>
                     <div className='flex items-center text-2xl font-semibold text-gray-800 truncate'>
                         <h2 className="">{product.name}</h2>
-                        {/* <span className='flex items-center'><MdOutlineHorizontalRule /></span>
-                        <span>5kg</span> */}
+
                     </div>
                     <div className='flex items-center gap-2'>
                         <div className='flex items-center gap-0'>
-                            {Array.from({ length: product.rating }, (_, i) => {
-                                return <span key={i}><FaStar className='text-yellow-400' /> </span>
-                            })}
+                            <div className='flex items-center gap-0'>
+                                {Array.from({ length: fullStars }, (_, i) => {
+                                    return <span key={i}><FaStar className='text-yellow-400' /> </span>
+                                })}
+                            </div>
+                            {
+                                fraction > 0 &&
+                                <div className="relative inline-block">
+                                    <FaStar className="text-gray-300" />
+                                    <div
+                                        className="absolute left-0 top-0 overflow-hidden"
+                                        style={{ width: `${percentage}%` }}
+                                    >
+                                        <FaStar className="text-yellow-400" />
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        {/* <span><FaStar className='text-yellow-400' /> </span> */}
+                       
                         <span><span className='font-bold'>{product.rating}</span> ({product.reviews} reviews)</span>
                     </div>
 
@@ -115,12 +138,12 @@ const ProductCard = ({ product }) => {
 
             <div>
                 {
-                    matchedProducts.length > 0 ? 
-                    <div className='flex items-center justify-center gap-5 bg-gray-100 border border-green-100 rounded-2xl px-4 py-2'>
-                        <span onClick={handleDeleteFromCart} className='cursor-pointer'><CiCircleMinus /></span>
-                        <span className='bg-green-200 rounded-xl px-3 py-1 '>{matchedProducts.length}</span>
-                        <span onClick={handleAddToCart} className='cursor-pointer'><CiCirclePlus /></span>
-                    </div> :
+                    matchedProducts.length > 0 ?
+                        <div className='flex items-center justify-center gap-5 bg-gray-100 border border-green-100 rounded-2xl px-4 py-2'>
+                            <span onClick={handleDeleteFromCart} className='cursor-pointer'><CiCircleMinus /></span>
+                            <span className='bg-green-200 rounded-xl px-3 py-1 '>{matchedProducts.length}</span>
+                            <span onClick={handleAddToCart} className='cursor-pointer'><CiCirclePlus /></span>
+                        </div> :
                         <div onClick={handleAddToCart} className='flex items-center justify-center gap-2  bg-green-700 rounded-2xl py-2 text-white cursor-pointer my-2 active:scale-95 transition-transform duration-150  '>
                             <span><GiShoppingCart /></span>
                             <span >কার্টে যোগ করুন</span>
