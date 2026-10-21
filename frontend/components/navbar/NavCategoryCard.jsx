@@ -11,7 +11,7 @@ const NavCategoryCard = ({ category }) => {
             <Link to={`/categories/${category.slug}/`} >
                 <h2
                     className={` rounded-2xl font-medium transition-all duration-200 ${isActive
-                            ? "bg-green-800 text-white shadow-md px-4 sm:px-4 py-1 sm:py-2"
+                            ? "border border-green-200 text-blue-600  shadow-md px-4 sm:px-4 py-1 sm:py-2"
                             : "text-gray-600 hover:bg-green-50 hover:text-green-800 px-3 sm:px-4 py-1 sm:py-2"
                         }`}
                 >
