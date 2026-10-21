@@ -14,7 +14,7 @@ const Navbar = () => {
     const [showProfileMenu, setShowProfileMenu] = useState(false)
     const {textInSearchBox,setTextInSearchBox} = useContext(CartContext)
     const { setSearchedResult } = useContext(CartContext)
-    console.log('textInSearchBox: ',textInSearchBox)
+    // console.log('textInSearchBox: ',textInSearchBox)
     const { userName } = useContext(UserContext)
     const { cartItems } = useContext(CartContext)
     const navigate = useNavigate()
