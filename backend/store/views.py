@@ -25,7 +25,7 @@ def get_products(request):
 @permission_classes([IsAdminUser])
 def create_products(request):
     # print(request.data)
-    serializer = ProductSerializer(data = request.data)
+    serializer = ProductSerializer(data = request.data, many=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
