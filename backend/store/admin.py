@@ -1,11 +1,24 @@
 from django.contrib import admin
 from .models import Category, Product, UserProfile, Order, OrderedProductInfo
 
-admin.site.register(Category)
-admin.site.register(Product)
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['id','name','slug']
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = [
+            'id', 'category', 'category_id', 'name',
+            'description', 'current_price', 'original_price',
+            'weight', 'rating', 'reviews', 'tags',
+            'discount', 'image', 'created_at', 'unit'
+        ]
+    
+    
+    
 admin.site.register(UserProfile)
-# admin.site.register(Order)
-# admin.site.register(OrderItem)
+
 
 
 class OrderedProductInfoInline(admin.TabularInline):
