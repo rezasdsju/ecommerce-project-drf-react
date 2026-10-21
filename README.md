@@ -1,249 +1,469 @@
-# 🛒 Bazar Sodai
+# Bazar-Sodai — Online Grocery Shop
 
-Bazar Sodai is a web-based daily essentials shopping application that allows users to browse everyday commodities such as rice, oil, salt, eggs, and fish, manage their shopping cart, and place orders online.
+Bazar-Sodai is a practice-based full-stack e-commerce project that simulates the core functionality of an online grocery store. The project was built to gain hands-on experience with modern frontend development, REST API integration, authentication, cart management, product browsing, checkout workflows, and backend API development.
 
-## 🌐 Live Demo
+## Live Demo
 
-- **Frontend:** [Bazar Sodai](https://bazar-sodai-frontend-ten.vercel.app/)
-- **Backend API:** [Products API](https://bazar-sodai-api.satbeta.top/api/products/)
+**Frontend:**  
+https://bazar-sodai-frontend-ten.vercel.app/
 
+**API Base URL:**  
+https://bazar-sodai-api.satbeta.top/api/
 
-## ✨ Features
+---
 
-- **Product Listing:** Browse daily essential products displayed in product cards.
-- **Product Details:** View detailed information about individual products.
-- **Category Browsing:** Browse products by category.
-- **Shopping Cart:** Add products to the cart and manage selected items.
-- **Quantity Management:** Increase or decrease product quantities.
-- **Remove Products:** Remove individual products from the cart.
-- **Persistent Cart:** Cart data is stored in browser local storage for 24 hours.
-- **Individual Checkout:** Place an order for an individual product.
-- **Cart Checkout:** Place an order for products added to the shopping cart.
-- **JWT Authentication:** Support for JSON Web Token-based authentication.
+## Project Overview
 
-## 🛠️ Technologies Used
+Bazar-Sodai is an online grocery shopping application built with **React** on the frontend and **Django REST Framework** on the backend.
 
-### Frontend
-- React
-- JavaScript
-- React Router DOM
-- DaisyUI
-- React Icons
-- React Toastify
+The application provides essential e-commerce functionality such as:
 
-### Backend
-- Python
-- Django
-- Django REST Framework
-- JWT Authentication
+- Product browsing
+- Product search
+- Price filtering
+- Category-based browsing
+- Product details
+- Shopping cart management
+- Checkout and order placement
+- User registration and login
+- Product and category APIs
+- Local Storage-based cart persistence
 
-### Database and Deployment
-- PostgreSQL
-- Vercel — Frontend Hosting
-- Gunicorn — Django Application Server
-- Nginx — Web Server and Reverse Proxy
-- HTTPS — Secure API Communication
+The primary goal of this project is to replicate the basic workflow of an online grocery store while gaining practical experience in full-stack web application development.
 
-## 🔗 API Endpoints
+---
 
-**Base URL:** `https://bazar-sodai-api.satbeta.top/api/`
+## Features
+
+### Product Management
+
+- Browse available grocery products.
+- View detailed information for individual products.
+- Search products by name.
+- Filter products based on price.
+- Browse products by category.
+- Fetch product data from the REST API.
+
+### Shopping Cart
+
+- Add products to the shopping cart.
+- Remove products from the cart.
+- Persist cart data using browser Local Storage.
+- Maintain cart data after page refresh.
+- Automatically expire cart data after 24 hours.
+
+### Checkout & Order Placement
+
+Users can place an order by providing:
+
+- Name
+- Address
+- Phone Number
+
+The checkout process provides the following payment options:
+
+- Cash on Delivery
+- bKash
+- Nagad
+
+A payment method must be selected before placing an order.
+
+### Authentication
+
+The project includes user registration and login functionality using Django's authentication system.
+
+After login, the generated:
+
+- Access Token
+- Refresh Token
+
+are stored in Local Storage.
+
+Authentication utility functions are implemented in:
+
+```text
+utils/auth.js
+```
+
+Available utility functions include:
+
+| Function | Description |
+|---|---|
+| `saveToken()` | Stores the access token and refresh token in Local Storage |
+| `getAccessToken()` | Retrieves the stored access token |
+| `getRefreshToken()` | Retrieves the stored refresh token |
+| `clearTokens()` | Removes authentication tokens from Local Storage |
+
+---
+
+## Authentication Limitations
+
+Authentication has been implemented, but it is not currently integrated with protected application workflows.
+
+Current limitations:
+
+- No protected pages are connected to the authentication system.
+- Order placement does not require authentication.
+- Users can place an order without logging in or signing up.
+- Authentication is not currently enforced during checkout.
+
+Protected pages and authentication-based order placement can be integrated in future development.
+
+---
+
+## Local Storage & Data Management
+
+### Cart Persistence
+
+Cart information is stored in Local Storage so that cart data remains available after a page refresh.
+
+A **24-hour expiration mechanism** is implemented for the cart.
+
+When the expiration period is reached:
+
+```text
+cart
+createdAt
+```
+
+are removed from Local Storage and the cart is cleared.
+
+### Product Data Storage
+
+Product data is fetched from the API on the homepage and stored in Local Storage.
+
+### Local Storage-based Product Search
+
+Product search uses the product data stored in Local Storage.
+
+### Product Data Updates
+
+Whenever product data is fetched from the API on the homepage, the corresponding product data stored in Local Storage is also updated.
+
+This allows the locally stored product data to remain synchronized with the latest product data fetched from the API.
+
+---
+
+## Product & Category API Access
+
+Session authentication is used for product and category creation APIs.
+
+### Admin Access
+
+Authenticated administrators can:
+
+- Create new products through the Product Create API.
+- Create new categories through the Category Create API.
+
+### Non-Admin Access
+
+Non-admin users do not have access to the product and category creation APIs.
+
+---
+
+## Payment System
+
+The checkout page currently provides three payment options:
+
+| Payment Method | Status |
+|---|---|
+| Cash on Delivery | Available |
+| bKash | Option available, no gateway integration |
+| Nagad | Option available, no gateway integration |
+
+### Payment Limitations
+
+There is currently no actual payment gateway integration for:
+
+- bKash
+- Nagad
+
+Therefore, selecting bKash or Nagad does not process an online payment at this stage.
+
+---
+
+## Product Reviews
+
+Product review submission is not currently implemented.
+
+At present, the product `reviews` field is managed from the Django Admin Panel and represents the review count.
+
+Users cannot currently submit product reviews through the application.
+
+---
+
+# API Documentation
+
+## API Base URL
+
+https://bazar-sodai-api.satbeta.top/api/
+
+---
+
+## Products API
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/products/` | Retrieve the product list |
-| GET | `/products/5/` | Retrieve a product by ID |
-| GET | `/categories/` | Retrieve all categories |
-| GET | `/categories/slug/` | Retrieve category information by slug |
-| POST | `/categories/order/create/` | Order creation endpoint |
+| `GET` | `/products/` | Retrieve all products |
+| `GET` | `/products/{id}/` | Retrieve a specific product |
 
-The HTTP methods and endpoint purposes above follow the supplied project information. Check the backend URL configuration for the exact supported behavior.
+### Examples
 
-## 📁 Project Structure
+**All Products**
+
+https://bazar-sodai-api.satbeta.top/api/products/
+
+**Product with ID 5**
+
+https://bazar-sodai-api.satbeta.top/api/products/5
+
+---
+
+## Categories API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/categories/` | Retrieve all categories |
+| `GET` | `/categories/{slug}/` | Retrieve a specific category |
+
+### Examples
+
+**All Categories**
+
+https://bazar-sodai-api.satbeta.top/api/categories/
+
+**Egg Category**
+
+https://bazar-sodai-api.satbeta.top/api/categories/egg
+
+---
+
+# Technology Stack
+
+## Frontend
+
+- React
+- JavaScript
+- React Router DOM
+- Tailwind CSS
+- DaisyUI
+- React Toastify
+- React Icons
+- Vite
+
+## Backend
+
+- Python
+- Django
+- Django REST Framework
+
+---
+
+# Project Structure
 
 ```text
 ecommerce-project-drf-react/
+│
+├── README.md
+├── BANGLA_DESCRIPTION.md
+│
 ├── backend/
 │   ├── manage.py
 │   ├── requirements.txt
+│   ├── .env
+│   │
 │   ├── backend/
-│   │   ├── __init__.py
-│   │   ├── asgi.py
 │   │   ├── settings.py
 │   │   ├── urls.py
+│   │   ├── asgi.py
 │   │   └── wsgi.py
-│   ├── media/
-│   │   └── products/
-│   └── store/
-│       ├── __init__.py
-│       ├── admin.py
-│       ├── apps.py
-│       ├── models.py
-│       ├── serializers.py
-│       ├── tests.py
-│       ├── urls.py
-│       ├── views.py
-│       └── migrations/
+│   │
+│   ├── store/
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── serializers.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   ├── tests.py
+│   │   └── migrations/
+│   │
+│   └── media/
+│       └── products/
+│           └── # Product image uploads
+│
 └── frontend/
     ├── package.json
     ├── package-lock.json
     ├── vite.config.js
     ├── index.html
-    ├── components/
-    ├── pages/
+    ├── .env
+    │
     ├── public/
+    │
     └── src/
-        ├── App.css
         ├── App.jsx
-        ├── index.css
+        ├── App.css
         ├── main.jsx
+        ├── index.css
         ├── assets/
+        │
         ├── context/
-        └── utils/
+        │   ├── CartContext.jsx
+        │   └── UserContext.jsx
+        │
+        ├── utils/
+        │   └── auth.js
+        │
+        ├── pages/
+        │   ├── HomePage.jsx
+        │   ├── ProductDetails.jsx
+        │   ├── CategorizedProductsPage.jsx
+        │   ├── SearchedProductPage.jsx
+        │   ├── CartPages.jsx
+        │   ├── CheckoutPage.jsx
+        │   ├── LoginPage.jsx
+        │   └── SignUpPage.jsx
+        │
+        └── components/
+            ├── CategoryDetails.jsx
+            ├── carts/
+            ├── checkout/
+            ├── homepage/
+            ├── loading/
+            ├── navbar/
+            └── shared/
 ```
-
-## ⚙️ Installation and Setup
-
-### Prerequisites
-
-Make sure you have installed:
-
-- Python
-- Node.js and npm
-- PostgreSQL
-- Git
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/rezasdsju/ecommerce-project-drf-react.git
-cd ecommerce-project-drf-react
-```
-
-### 2. Configure the Backend
-
-Navigate to the backend directory:
-
-```bash
-cd backend
-python -m venv venv
-```
-
-Activate the virtual environment.
-
-**Windows PowerShell:**
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-**Linux/macOS:**
-
-```bash
-source venv/bin/activate
-```
-
-Install the Python dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Configure Backend Environment Variables
-
-Create a `.env` file inside the `backend/` directory:
-
-```env
-SECRET_KEY=your-django-secret-key
-DEBUG=True
-ALLOWED_HOSTS=127.0.0.1,localhost
-
-DB_NAME=your_database_name
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-DB_HOST=127.0.0.1
-DB_PORT=5432
-
-MEDIA_URL=/media/
-MEDIA_ROOT=media
-```
-
-Configure the variables according to your Django settings and local PostgreSQL database. Never commit real credentials or production secrets.
-
-### 4. Apply Database Migrations
-
-```bash
-python manage.py migrate
-```
-
-Create an administrator account if needed:
-
-```bash
-python manage.py createsuperuser
-```
-
-Start the Django development server:
-
-```bash
-python manage.py runserver
-```
-
-The backend will be available at `http://127.0.0.1:8000/`.
-
-### 5. Configure the Frontend
-
-Open a new terminal and navigate to the frontend directory:
-
-```bash
-cd frontend
-npm install
-```
-
-Create a `.env` file inside `frontend/` with the following variables:
-
-```env
-VITE_DJANGO_BASE_URL=http://127.0.0.1:8000
-VITE_DJANGO_BASE_API_URL=http://127.0.0.1:8000/api/
-```
-
-These variables configure the Django backend base URL and API base URL for the frontend.
-
-Start the Vite development server:
-
-```bash
-npm run dev
-```
-
-Open the local URL shown in the terminal, usually `http://localhost:5173/`.
-
-## 🔐 Security Notes
-
-- Keep `.env` files and credentials out of version control.
-- Use a strong, private Django `SECRET_KEY`.
-- Set `DEBUG=False` in production.
-- Configure `ALLOWED_HOSTS` and CORS for trusted domains only.
-- Use HTTPS for production API communication.
-- Never expose database credentials in frontend code.
-
-## 🚀 Deployment
-
-- **Frontend:** [Vercel](https://bazar-sodai-frontend-ten.vercel.app/)
-- **Backend:** Django REST Framework with Gunicorn and Nginx.
-- **Database:** PostgreSQL.
-- **Media Files:** Product images served through the backend domain over HTTPS.
-
-For production, configure the frontend environment variables with the deployed API URLs:
-
-```env
-VITE_DJANGO_BASE_URL=https://bazar-sodai-api.satbeta.top
-VITE_DJANGO_BASE_API_URL=https://bazar-sodai-api.satbeta.top/api/
-```
-
-## 👨‍💻 Author
-
-**Rezaul Karim Rifat**
-
-- GitHub: [@rezasdsju](https://github.com/rezasdsju)
 
 ---
 
-If you find this project useful, consider giving the repository a ⭐ on GitHub.
+# Project Structure Overview
+
+## Backend
+
+The backend is built with Django and Django REST Framework.
+
+| File/Directory | Purpose |
+|---|---|
+| `manage.py` | Django project management |
+| `backend/settings.py` | Project configuration and settings |
+| `backend/urls.py` | Main URL configuration |
+| `store/models.py` | Database models |
+| `store/serializers.py` | API serializers |
+| `store/views.py` | API views and business logic |
+| `store/urls.py` | Store application URL configuration |
+| `store/admin.py` | Django Admin configuration |
+| `store/migrations/` | Database migration files |
+| `requirements.txt` | Python dependencies |
+| `media/products/` | Uploaded product images |
+
+## Frontend
+
+The frontend is developed using React and contains the application's pages, reusable components, contexts, and utilities.
+
+### Pages
+
+```text
+HomePage.jsx
+ProductDetails.jsx
+CategorizedProductsPage.jsx
+SearchedProductPage.jsx
+CartPages.jsx
+CheckoutPage.jsx
+LoginPage.jsx
+SignUpPage.jsx
+```
+
+### Components
+
+```text
+components/
+├── CategoryDetails.jsx
+├── carts/
+├── checkout/
+├── homepage/
+├── loading/
+├── navbar/
+└── shared/
+```
+
+### Context
+
+```text
+context/
+├── CartContext.jsx
+└── UserContext.jsx
+```
+
+- `CartContext.jsx` — Manages cart-related state.
+- `UserContext.jsx` — Manages user-related context.
+
+### Utilities
+
+```text
+utils/
+└── auth.js
+```
+
+`auth.js` contains the utility functions responsible for storing, retrieving, and clearing authentication tokens.
+
+---
+
+# Current Limitations
+
+The project is currently a practice project and has several limitations.
+
+### Authentication
+
+- Protected pages have not yet been implemented.
+- Order placement is not restricted to authenticated users.
+- Authentication is not currently connected to the checkout workflow.
+
+### Payment
+
+- No bKash payment gateway integration.
+- No Nagad payment gateway integration.
+- bKash and Nagad are currently available only as payment options.
+
+### Product Reviews
+
+- Users cannot submit product reviews.
+- Review count is currently managed through the Django Admin Panel.
+
+These areas can be extended in future versions of the project.
+
+---
+
+# Project Purpose
+
+Bazar-Sodai was developed as a hands-on practice project to understand and implement the fundamental concepts required for a full-stack e-commerce application.
+
+The project provides practical experience with:
+
+- React application development
+- REST API integration
+- Django REST Framework
+- Authentication and token management
+- Local Storage
+- Cart state management
+- Product and category management
+- Search and filtering
+- Checkout workflows
+- API-based data management
+- Admin-controlled content management
+
+---
+
+# Conclusion
+
+Bazar-Sodai is a full-stack practice e-commerce project focused on implementing the core workflow of an online grocery store.
+
+The application currently supports product browsing, product search, price filtering, category-based browsing, product details, cart management, checkout, order placement, and user authentication.
+
+While features such as protected routes, authenticated checkout, user-submitted product reviews, and real payment gateway integration are not currently implemented, the project provides a solid foundation for further development of a complete grocery e-commerce platform.
+
+---
+
+## License
+
+This project is developed as a practice project for learning and experimentation.

@@ -1,3 +1,9 @@
+আমি তোমাকে সব তথ্য দিব
+তুমি আমাকে professional README file likhe daba
+
+Professional readme likhba
+Readme github এ add করবো তাই profession ও english এ হতে হবে
+"""""""""""""""""
 # Bazar-Sodai — অনলাইন গ্রোসারি শপ
 
 **Live Link:** https://bazar-sodai-frontend-ten.vercel.app/
@@ -62,7 +68,7 @@ Homepage-এ API থেকে Product Data Fetch হলে Local Storage-এর 
 
 ## ৫. Product ও Category API Access
 
-Product এবং Category তৈরি করার API-তে Basic Authentication ব্যবহার করা হয়েছে।
+Product এবং Category তৈরি করার API-তে Session Authentication ব্যবহার করা হয়েছে।
 
 - Admin লগইন করে Product Create API ব্যবহার করে নতুন Product যুক্ত করতে পারে।
 - Admin লগইন করে Category Create API ব্যবহার করে নতুন Category যুক্ত করতে পারে।
@@ -204,3 +210,62 @@ Backend-এর `media/products/` ডিরেক্টরিতে আপলো�
 Bazar-Sodai একটি Practice Project, যেখানে অনলাইন গ্রোসারি শপের Product Browsing, Cart Management, Product Search, Price Filtering, Category-based Browsing, Order Placement এবং Authentication-এর মতো ফিচার বাস্তবায়ন করা হয়েছে।
 
 প্রজেক্টটিতে কিছু সীমাবদ্ধতাও রয়েছে। Authentication এখনো Protected Page বা Order Placement-এর সঙ্গে সংযুক্ত নয়, Product Review সংগ্রহের ফিচার নেই এবং bKash ও Nagad-এর Payment Gateway Integration করা হয়নি।
+
+
+
+project structure
+ecommerce-project-drf-react/
+├── README.md
+├── BANGLA_DESCRIPTION.md
+├── backend/
+│   ├── manage.py
+│   ├── requirements.txt
+│   ├── .env
+│   ├── backend/                 # Django project configuration
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── asgi.py
+│   │   └── wsgi.py
+│   ├── store/                   # Store app: API, models, and tests
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── serializers.py
+│   │   ├── views.py
+│   │   ├── urls.py
+│   │   ├── tests.py
+│   │   └── migrations/
+│   └── media/
+│       └── products/             # Product image uploads
+└── frontend/
+    ├── package.json
+    ├── package-lock.json
+    ├── vite.config.js
+    ├── index.html
+    ├── .env
+    ├── public/
+    ├── src/
+    │   ├── App.jsx
+    │   ├── App.css
+    │   ├── main.jsx
+    │   ├── index.css
+    │   ├── assets/
+    │   ├── context/              # React contexts (cart/user state)
+    │   └── utils/
+    ├── pages/                    # Main application pages
+    │   ├── HomePage.jsx
+    │   ├── ProductDetails.jsx
+    │   ├── CategorizedProductsPage.jsx
+    │   ├── SearchedProductPage.jsx
+    │   ├── CartPages.jsx
+    │   ├── CheckoutPage.jsx
+    │   ├── LoginPage.jsx
+    │   └── SignUpPage.jsx
+    └── components/               # Reusable UI components
+        ├── CategoryDetails.jsx
+        ├── carts/
+        ├── checkout/
+        ├── homepage/
+        ├── loading/
+        ├── navbar/
+        └── shared/
