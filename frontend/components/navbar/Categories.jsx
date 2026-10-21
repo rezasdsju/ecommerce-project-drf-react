@@ -9,6 +9,7 @@ const Categories = ({ navCategoriesPromise }) => {
     const categories = use(navCategoriesPromise)
 
     const visibleCategories = isExpanded ? categories : categories.slice(0, 4)
+    const visibleCategoriesForWideScreen = isExpanded? categories: categories.slice(0,10)
 
     return (
         <div className=" px-2 sm:px-5 py-3 border-b border-gray-100 ">
@@ -22,10 +23,10 @@ const Categories = ({ navCategoriesPromise }) => {
                         </div>
                         <div className="hidden sm:flex justify-center gap-0 flex-wrap  ">
                             {
-                                categories.map(category => <NavCategoryCard key={category.id} category={category}></NavCategoryCard>)
+                                visibleCategoriesForWideScreen.map(category => <NavCategoryCard key={category.id} category={category}></NavCategoryCard>)
                             }
                         </div>
-                        <div className="sm:hidden">
+                        <div className={`${categories.length<10 && 'sm:hidden'}`}>
                             <span onClick={()=>setIsExpanded(!isExpanded)}>{isExpanded?<IoChevronUp />:<FiChevronDown className="font-bold"/>}</span>
                         </div>
                     </div>
