@@ -10,7 +10,6 @@ const navCategoriesPromise = async()=>{
 const NavCategories = () => {
     return (
         <div className="sticky top-0 bg-white z-50">
-            {/* <h2>Nav Categories</h2> */}
             <Suspense fallback={<ShimmerLoading></ShimmerLoading>}>
                 <Categories navCategoriesPromise={navCategoriesPromise()}></Categories>
             </Suspense>

@@ -2,13 +2,14 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../src/context/CartContext";
 import OrderSummaryProductItemCard from "./OrderSummaryProductItemCard";
 import { TbCurrencyTaka } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 const OrderSummary = () => {
     const [paymentMethod, setPaymentMethod] = useState('')
 
     const { cartItems, setCartItems } = useContext(CartContext)
     const currentItems = []
-    console.log(typeof cartItems[0]?.current_price);
+
     const totalAmountOfCartProducts = cartItems.reduce((sum, item) => sum + Number(item.current_price), 0)
 
 
@@ -24,14 +25,14 @@ const OrderSummary = () => {
         }
 
     }).filter(Boolean)
-    console.log('OrderedProducts: ', OrderedProducts)
+   
 
 
     const handleOrderCartProducts = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const deliveryData = Object.fromEntries(formData.entries())
-        console.log('deliveryData: ', deliveryData)
+    
 
         deliveryData.paymentMethod = paymentMethod
         const res = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/orders/create/`, {
@@ -41,8 +42,12 @@ const OrderSummary = () => {
             },
             body: JSON.stringify({ ordered_products: OrderedProducts, delivery_info: deliveryData }),
         })
-        const result = await res.json()
-        console.log('result: ', result)
+        if (res.ok){
+            toast.success('সফলভাবে অর্ডার করা হয়েছে')
+        }
+        if (!res.ok){
+            toast.error('অর্ডার সম্পন্ন হয় নি')
+        }
         setCartItems([])
 
     }

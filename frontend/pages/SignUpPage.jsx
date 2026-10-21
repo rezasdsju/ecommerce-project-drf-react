@@ -5,7 +5,7 @@ const SignUpPage = () => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const userSignUpInfo = Object.fromEntries(formData.entries())
-        // console.log('userSignUpInfo: ',userSignUpInfo)
+       
         const username = userSignUpInfo.username;
 
         const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
@@ -19,7 +19,7 @@ const SignUpPage = () => {
             return
         }
         const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s]).{8,}$/;
-        // console.log(strongPasswordRegex.test("2313Rafi@"));
+       
 
         if (!strongPasswordRegex.test(userSignUpInfo.password)) {
             toast.info("অনুগ্রহ করে শক্তিশালী পাসওয়ার্ড ব্যবহার করুন");
@@ -34,10 +34,7 @@ const SignUpPage = () => {
             body: JSON.stringify(userSignUpInfo)
         })
 
-        // console.log("Status:", res.status);
-        // console.log("Success:", res.ok);
-        // const result = await res.json()
-        // console.log('result after submit data: ', result)
+
 
         if (res.ok){
             toast.success('সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!')

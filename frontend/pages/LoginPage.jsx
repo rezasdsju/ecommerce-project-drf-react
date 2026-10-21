@@ -13,7 +13,7 @@ const LoginPage = () => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const userSignInData = Object.fromEntries(formData.entries())
-        console.log('userSignInData: ', userSignInData)
+  
 
         const res = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/token/`, {
             method: 'POST',
@@ -23,40 +23,37 @@ const LoginPage = () => {
 
             body: JSON.stringify(userSignInData),
         })
-        console.log('res: ', res)
-        console.log(res.status)
-        console.log(res.ok)
+
         if (!res.ok) {
             toast.error('পাসওয়ার্ড অথবা ইউজারনেম ভুল')
             return
         }
-        // const responseFromServer = await res.json()
-        // console.log('responseFromServer: ', responseFromServer)
+
 
         const result = await res.json()
-        console.log('result: ', result)
+ 
 
         saveToken(result)
         const accessToken = getAccessToken()
-        // const accessToken = result.access
-        console.log('accessToken: ', accessToken)
+
+  
         const response = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/profile/`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
         })
         const profileData = await response.json()
-        const { username } = profileData
-        // setUserName(username)
+   
+   
         if (response.ok) {
             setUserName(profileData.username)
         }
-        console.log('response.status: ', response.status)
+   
         if (response.status === 401) {
-            // console.log('Access token invalid or expired')
+    
 
             const refreshToken = getRefreshToken()
-            console.log('refresh token:', refreshToken)
+     
             const refreshResponse = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/token/refresh/`, {
                 method: "POST",
                 headers: {
@@ -64,28 +61,27 @@ const LoginPage = () => {
                 },
                 body: JSON.stringify({ refresh: refreshToken }),
             })
-            // console.log('refresh status:', refreshResponse.status)
-            // console.log('refresh ok:', refreshResponse.ok)
+
             if (!refreshResponse.ok) {
                 toast.error('Session expired. Please log in again.')
                 return
             }
             const refreshResult = await refreshResponse.json()
 
-            // console.log('refresh result:', refreshResult)
+      
             const newAccessAndPreviousRefreshTokenToUpdate = { access: refreshResult.access, refresh: refreshToken }
             saveToken(newAccessAndPreviousRefreshTokenToUpdate)
             const updatedAccessToken = getAccessToken()
-            // console.log('Access token updated:', updatedAccessToken === refreshResult.access)
+
 
             const retryResponse = await fetch(`${import.meta.env.VITE_DJANGO_BASE_URL}/api/profile/`, {
                 headers: {
                     Authorization: `Bearer ${updatedAccessToken}`
                 }
             })
-            console.log('retry status:', retryResponse.status)
+  
             const retryProfileData = await retryResponse.json()
-            // console.log('username: ', retryProfileData.username)
+       
             if (retryResponse.ok) {
                 toast.success('সাইন ইন সফল হয়েছে')
                 navigate('/')

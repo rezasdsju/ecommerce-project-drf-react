@@ -1,17 +1,15 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-// import { useCart } from '../src/context/CartContext';
+
 import { FaStar } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { GiShoppingCart } from "react-icons/gi";
-import { MdOutlineHorizontalRule } from "react-icons/md";
-import { PiLineVerticalBold } from "react-icons/pi";
+
 import { CartContext } from '../src/context/CartContext';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+
 import ShimmerLoading from '../components/loading/ShimmerLoading';
-// import { useNavigate } from "react-router-dom";
+
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -56,7 +54,7 @@ const ProductDetails = () => {
         setCartItems([...cartItems, product])
         const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
         toast.success(`${numberOfAddedSameProduct} ${product.unit} ${product.name} কার্টে অ্যাড করা হয়েছে`)
-        // console.log('Cart Added')
+      
         const createdAt = JSON.parse(localStorage.getItem('createdAt'))
 
         if (!createdAt) {
@@ -66,7 +64,7 @@ const ProductDetails = () => {
 
 
     }
-    console.log(cartItems)
+  
     return (
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 my-10 max-w-7xl mx-auto px-2 sm:px-5'>
             <div className='border border-gray-100 rounded-2xl max-h-130 overflow-hidden'>

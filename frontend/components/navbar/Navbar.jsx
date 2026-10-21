@@ -18,13 +18,13 @@ const Navbar = () => {
     const [clickedSearchIcon, setClickedSearchIcon] = useState(false)
     const { setTextInSearchBox } = useContext(CartContext)
     const { setSearchedResult } = useContext(CartContext)
-    // console.log('textInSearchBox: ',textInSearchBox)
+
     const { userName } = useContext(UserContext)
     const { cartItems } = useContext(CartContext)
     const navigate = useNavigate()
 
     const profileMenuRef = useRef(null)
-    // const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
+
     const isLoggenIn = !!getAccessToken()
     const handleLogOut = () => {
         clearTokens()
@@ -33,9 +33,6 @@ const Navbar = () => {
 
     useEffect(() => {
         document.addEventListener('click', (event) => {
-            // setShowProfileMenu(false)
-            console.log('event: ', event.target)
-            console.log(profileMenuRef.current.contains(event.target))
             if (!profileMenuRef.current.contains(event.target)) {
                 setShowProfileMenu(false)
             }
@@ -54,19 +51,17 @@ const Navbar = () => {
             return false
         }
     })
-    // console.log('uniqueCartProducts: ',uniqueCartProducts)
+
 
     const savedProducts = JSON.parse(localStorage.getItem('products'))
-    // console.log('savedProducts: ',savedProducts)
+
     const handleSearch = (searchedProduct) => {
-        // console.log('search text: ',searchedProduct)
         if (searchedProduct.length < 1) {
             setSearchedResult([])
             setTextInSearchBox(searchedProduct)
             return
         }
         const filteredProducts = savedProducts.filter(product => product.name.toLowerCase().includes(searchedProduct.toLowerCase()))
-        // console.log('filteredProducts: ',filteredProducts)
         setSearchedResult([...filteredProducts])
         setTextInSearchBox(searchedProduct)
     }
@@ -98,7 +93,7 @@ const Navbar = () => {
 
 
 
-                {/* <div className="hidden sm:block"> */}
+
 
                 <div onClick={() => navigate('/search')} className="hidden sm:block">
                     <label className="input">

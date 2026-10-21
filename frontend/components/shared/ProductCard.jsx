@@ -18,7 +18,6 @@ const ProductCard = ({ product }) => {
 
     const handleAddToCart = () => {
         setCartItems([...cartItems, product])
-        const numberOfAddedSameProduct = cartItems.filter(item => item.id === product.id).length + 1
         toast.success(`কার্টে অ্যাড করা হয়েছে`)
 
     }
@@ -35,9 +34,8 @@ const ProductCard = ({ product }) => {
     const fullStars = Math.floor(rating)
    
     const fraction = Number((rating - fullStars).toFixed(2));
-    // console.log("fraction:", fraction);
     const percentage = fraction * 100
-    // console.log('percentage: ', percentage)
+   
 
     return (
 

@@ -46,7 +46,7 @@ const ProductList = () => {
                     products.length>0 ? products.map(product=>{
                        return <ProductCard key={product.id} product={product}></ProductCard>
                     }) :
-                    <p>No Products available</p>
+                    <p className="text-2xl flex items-center justify-center text-center text-red-600">কোন পণ্য পাওয়া যায় নি</p>
                 }
             </div>
         </div>

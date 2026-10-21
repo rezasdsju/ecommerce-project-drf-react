@@ -1,19 +1,15 @@
 
-import { use, useState } from "react";
+import {  useState } from "react";
 import { IoChevronForward } from "react-icons/io5";
 import ProductCard from "./shared/ProductCard";
 import { Link } from "react-router-dom";
 
 
 const CategoryDetails = ({ category }) => {
-    // const category = use(categorizedProductsPromise)
-    console.log('category: ', category)
-    const products = category.products
-    console.log('products: ', products)
-    console.log('First product image:', products[0]?.image);
 
+    const products = category.products
     const [filter, setFilter] = useState('default')
-    // const [sortedProducts, setSortedProducts] = useState([...products]) 
+  
     const sortProducts = (products) => {
         const productsToSort = [...products]
         if (filter === 'default') {

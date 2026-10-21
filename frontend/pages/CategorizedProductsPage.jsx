@@ -9,7 +9,7 @@ import SkeletonLoading from "../components/loading/SkeletonLoading";
 
 const CategorizedProductsPage = () => {
     const { slug } = useParams()
-    console.log("Current slug:", slug);
+   
     const [category, setCategory] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')

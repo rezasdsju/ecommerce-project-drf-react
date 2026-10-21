@@ -1,30 +1,7 @@
 import { HiMiniMinusSmall } from "react-icons/hi2";
 import { HiMiniPlusSmall } from "react-icons/hi2";
-import { MdDelete } from "react-icons/md";
-import { useContext, useState } from "react";
-import { CartContext } from "../../src/context/CartContext";
 
 const CartItemForCheckout = ({ product, quantity, setQuantity }) => {
-    const { cartItems, setCartItems } = useContext(CartContext);
-
-    const totalItems = cartItems.filter(item => item.id === product.id).length;
-
-    const handleDeleteCartItems = () => {
-        const remaining = cartItems.filter(item => item.id !== product.id);
-        setCartItems(remaining);
-    };
-
-    const handleRemoveSingleCartItem = () => {
-        const firstIndex = cartItems.findIndex(item => item.id === product.id);
-        if (firstIndex !== -1) {
-            const remaining = cartItems.filter((_, index) => index !== firstIndex);
-            setCartItems(remaining);
-        }
-    };
-
-    const handleAddCartItem = () => {
-        setCartItems([...cartItems, product]);
-    };
 
     const handleIncreaseQuantity = () => {
         setQuantity(quantity + 1)
@@ -94,47 +71,34 @@ const CartItemForCheckout = ({ product, quantity, setQuantity }) => {
                             </button>
                         </div>
 
-                        {/* <button 
-                        onClick={handleDeleteCartItems}
-                        className="flex items-center gap-1 text-xs font-semibold text-red-500 bg-red-50 hover:bg-red-100 px-3 py-2 rounded-lg transition-colors cursor-pointer"
-                        title="রিমুভ করুন"
-                    >
-                        <MdDelete className="text-base" />
-                        <span className="hidden sm:inline">রিমুভ</span>
-                    </button> */}
                     </div>
 
                 </div>
 
 
             </div>
-            {/* <span className="text-xs sm:text-sm text-gray-400">
-                প্রতি {product.unit}: <span className="font-medium text-gray-600">{product.current_price}৳</span>
-            </span>
-            <p className="text-sm sm:text-base font-semibold text-gray-600 mt-0.5">
-                {quantity} {product.unit} = <span className="text-green-600 font-bold text-lg">{quantity * product.current_price}৳</span>
-            </p> */}
-<div className="border border-gray-100 bg-gray-50/50 rounded-2xl p-4 space-y-3 shadow-2xs">
-    <div className="flex items-center justify-between text-sm text-gray-600">
-        <span className="font-medium">পরিমাণ</span>
-        <span className="font-semibold text-gray-800 bg-white px-2.5 py-0.5 rounded-md border border-gray-100 shadow-2xs">
-            {quantity} {product.unit}
-        </span>
-    </div>
 
-    <div className="flex items-center justify-between text-sm text-gray-600">
-        <span className="font-medium">প্রতি {product.unit}</span>
-        <span className="font-semibold text-gray-800">{product.current_price}৳</span>
-    </div>
+            <div className="border border-gray-100 bg-gray-50/50 rounded-2xl p-4 space-y-3 shadow-2xs">
+                <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span className="font-medium">পরিমাণ</span>
+                    <span className="font-semibold text-gray-800 bg-white px-2.5 py-0.5 rounded-md border border-gray-100 shadow-2xs">
+                        {quantity} {product.unit}
+                    </span>
+                </div>
 
-    <div className="flex items-center justify-between border-t border-gray-200/80 pt-3 mt-1">
-        <span className="font-bold text-gray-800 text-base">মোট</span>
-        <span className="font-bold text-xl text-green-600">
-            {product.current_price * quantity}৳
-        </span>
-    </div>
-</div>
-    
+                <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span className="font-medium">প্রতি {product.unit}</span>
+                    <span className="font-semibold text-gray-800">{product.current_price}৳</span>
+                </div>
+
+                <div className="flex items-center justify-between border-t border-gray-200/80 pt-3 mt-1">
+                    <span className="font-bold text-gray-800 text-base">মোট</span>
+                    <span className="font-bold text-xl text-green-600">
+                        {product.current_price * quantity}৳
+                    </span>
+                </div>
+            </div>
+
         </div>
     );
 };
