@@ -32,45 +32,58 @@ A grocery shopping web app built with React, Vite, and DaisyUI.
 
 ```text
 frontend/
-├── .gitignore
-├── .oxlintrc.json
 ├── index.html
 ├── package.json
 ├── package-lock.json
-├── README.md
 ├── vite.config.js
+├── .env
+├── .gitignore
+├── .oxlintrc.json
+├── README.md
+├── public/
+│   ├── bazar-sodai-footer-logo.jpg
+│   ├── favicon-2.jpg
+│   ├── favicon.jpg
+│   ├── favicon.svg
+│   └── icons.svg
 ├── components/
-│   ├── Banner.jsx
-│   ├── CartItem.jsx
-│   ├── CartItemForCheckout.jsx
 │   ├── CategoryDetails.jsx
-│   ├── OrderSummary.jsx
-│   ├── OrderSummaryForCheckOutPage.jsx
-│   ├── OrderSummaryProductItemCard.jsx
-│   ├── PrivateRouter.jsx
-│   ├── ProductCard.jsx
-│   ├── ProductList.jsx
-│   └── navbar/
-│       ├── Categories.jsx
-│       ├── NavCategories.jsx
-│       ├── NavCategoryCard.jsx
-│       └── Navbar.jsx
+│   ├── carts/
+│   │   ├── CartItem.jsx
+│   │   ├── OrderSummary.jsx
+│   │   └── OrderSummaryProductItemCard.jsx
+│   ├── checkout/
+│   │   ├── CartItemForCheckout.jsx
+│   │   └── OrderSummaryForCheckOutPage.jsx
+│   ├── homepage/
+│   │   ├── Banner.jsx
+│   │   └── ProductList.jsx
+│   ├── loading/
+│   │   ├── ProgressBarLoading.jsx
+│   │   ├── ShimmerLoading.jsx
+│   │   ├── SkeletonLoading.jsx
+│   │   └── SkeletonLoadingForProductList.jsx
+│   ├── navbar/
+│   │   ├── Categories.jsx
+│   │   ├── NavCategories.jsx
+│   │   ├── NavCategoryCard.jsx
+│   │   └── Navbar.jsx
+│   └── shared/
+│       ├── Footer.jsx
+│       ├── ProductCard.jsx
+│       └── ScrollToTop.jsx
 ├── pages/
 │   ├── CartPages.jsx
 │   ├── CategorizedProductsPage.jsx
 │   ├── CheckoutPage.jsx
 │   ├── HomePage.jsx
-│   ├── Login.jsx
+│   ├── LoginPage.jsx
 │   ├── ProductDetails.jsx
-│   └── Signup.jsx
-├── public/
-│   ├── favicon-2.jpg
-│   ├── favicon.jpg
-│   ├── favicon.svg
-│   └── icons.svg
+│   ├── SearchedProductPage.jsx
+│   └── SignUpPage.jsx
 └── src/
-    ├── App.css
     ├── App.jsx
+    ├── App.css
     ├── index.css
     ├── main.jsx
     ├── assets/
@@ -79,7 +92,8 @@ frontend/
     │   ├── react.svg
     │   └── vite.svg
     ├── context/
-    │   └── CartContext.jsx
+    │   ├── CartContext.jsx
+    │   └── UserContext.jsx
     └── utils/
         └── auth.js
 ```
